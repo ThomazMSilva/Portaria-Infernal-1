@@ -726,8 +726,7 @@ public class TelaMenuInicial extends javax.swing.JFrame {
         this.setPaineisInvisiveis();
         painelInicial.setVisible(true);
     }//GEN-LAST:event_menuBarRadio0ActionPerformed
-
-    // consulta
+  
     private void btn_pesquiseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquiseActionPerformed
         
         DefaultTableModel dtm = (DefaultTableModel) this.tabela1.getModel();
@@ -806,8 +805,7 @@ public class TelaMenuInicial extends javax.swing.JFrame {
     private void txt_inserirContatoPrestadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_inserirContatoPrestadorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_inserirContatoPrestadorActionPerformed
-
-    // inserção
+  
     private void btn_InserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_InserirActionPerformed
         String tabela="";
         ArrayList<String> parametros = new ArrayList();
