@@ -34,6 +34,7 @@ public class ManipuladorDB {
     public ArrayList<Object[]> consultarDados(String tabela){
 
         String sql = "SELECT * FROM "+tabela;
+        System.out.println(tabela);
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -41,7 +42,7 @@ public class ManipuladorDB {
             
             // instanciando o arraylist de array
             ArrayList<Object[]> listaRetornada = new ArrayList();
-            int cont; //Interador pelas colunas
+            int cont;
             boolean valid;
 
             while(rs.next()){
@@ -67,6 +68,7 @@ public class ManipuladorDB {
                     
                     catch (Exception e){
                         System.out.println("ERro: "+e);
+                        return null;
                     }
                 }
             }
@@ -87,6 +89,8 @@ public class ManipuladorDB {
         else{
             sql = "SELECT * FROM ";
             
+            // where ( x=y and q=z )
+            
             // adicionar parametros no sql parte2
             for (int x=0; x<param.length-1;x++){
                 sqlParte2 += (param[x]+" = ?");
@@ -98,7 +102,7 @@ public class ManipuladorDB {
             // juntando o sql ao sql2
             sql += tabela+" WHERE "+sqlParte2;
         }
-        
+        System.out.println(sql);
         try {
             pst = conexao.prepareStatement(sql);
             // adicionando valores dos parametros de pesquisa
@@ -106,8 +110,7 @@ public class ManipuladorDB {
             
             // executa a query
             rs = pst.executeQuery();
-            
-            
+         
             ArrayList<Object[]> listaRetornada = new ArrayList();
             int cont;
             boolean valid;
@@ -214,7 +217,8 @@ public class ManipuladorDB {
         catch (Exception ex) {System.out.println("Erro: "+ ex);}   
     }
  
-    public void alterarDados(String tabela, String[] param,String[] valor, String[] paramPesquisa,String[] valorPesquisa){
+    public void alterarDados(String tabela, String[] param,String[] valor,
+    String[] paramPesquisa,String[] valorPesquisa){
         
         String sql1="", sql2="", sql;
         
@@ -275,4 +279,5 @@ public class ManipuladorDB {
             Logger.getLogger(ManipuladorDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
 }

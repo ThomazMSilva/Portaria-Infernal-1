@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        teste5();
+        teste3();
     }
     // testes
     
@@ -57,7 +57,7 @@ public class Main {
             param = {"temperamento_residente"},
             valor = {"moderado"},
             paramPesquisa = {"id_residente"},
-            valorPesquisa = {"5"};
+            valorPesquisa = {"6"};
         ManipuladorDB mbd = new ManipuladorDB("banco_portaria_infernal");
         mbd.alterarDados("tb_residente", param, valor, paramPesquisa, valorPesquisa);
         mbd.desconectar();
@@ -65,7 +65,7 @@ public class Main {
 
     // excluir dados
     static void teste5(){
-        String param="id_residente", valor="5";
+        String param="nome_residente", valor="Lulu";
         ManipuladorDB mbd = new ManipuladorDB("banco_portaria_infernal");
         
         mbd.deletarRegistro("tb_residente", param, valor);
