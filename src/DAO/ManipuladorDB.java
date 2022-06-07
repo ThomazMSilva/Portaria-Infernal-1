@@ -34,7 +34,6 @@ public class ManipuladorDB {
     public ArrayList<Object[]> consultarDados(String tabela){
 
         String sql = "SELECT * FROM "+tabela;
-        System.out.println(tabela);
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -146,6 +145,70 @@ public class ManipuladorDB {
             return null;
         }
     }
+
+    public ArrayList<Object[]> consultarDadosAdv(String tabela,String param[],String valor[], boolean like){
+
+        String sqlParte2="", sql;
+
+        if (param.length == 1){sql = "SELECT * FROM "+tabela+" WHERE "+param[0]+" like ?";}
+        else{
+            sql = "SELECT * FROM ";
+            
+            // where ( x=y and q=z )
+            
+            // adicionar parametros no sql parte2
+            for (int x=0; x<param.length-1;x++){
+                sqlParte2 += (param[x]+" like ?");
+                sqlParte2 += " AND ";
+            }
+            sqlParte2 += (param[param.length-1]+" like ?");
+            
+            // juntando o sql ao sql2
+            sql += tabela+" WHERE "+sqlParte2;
+        }
+        try {
+            pst = conexao.prepareStatement(sql);
+            // adicionando valores dos parametros de pesquisa
+            for (int x=0; x<param.length;x++){pst.setString(x+1, ("%"+valor[x]+"%"));}
+            
+            // executa a query
+            rs = pst.executeQuery();
+         
+            ArrayList<Object[]> listaRetornada = new ArrayList();
+            int cont;
+            boolean valid;
+
+            while(rs.next()){
+                cont=1;
+                valid = true;
+                ArrayList<Object> listatemp = new ArrayList();
+                
+                while(valid){
+                    try{
+                        listatemp.add(rs.getObject(cont));
+                        cont++;
+                    }
+                    catch (SQLException e){
+                        //System.out.println("erro: "+e);
+                        valid = false;
+                        Object[] c1 = new Object[listatemp.size()];
+                        c1 = listatemp.toArray();
+                        //for (int x=0;x<listatemp.size();x++){c1[x] = listatemp.get(x);}
+                        listaRetornada.add(c1);
+                    }
+                    catch (Exception e){
+                        System.out.println("erro: "+e);
+                    }
+                }
+            }
+            return listaRetornada;
+        } 
+        
+        catch (SQLException ex) {
+            System.out.println("Erro: "+ ex);
+            return null;
+        }
+    }
     
     public boolean checarLoginPorteiro(String nome, String senha){
         String sql = "SELECT * FROM tb_porteiro WHERE nome_porteiro = ? and senha_porteiro = ?";
@@ -191,7 +254,6 @@ public class ManipuladorDB {
             sql1 += ","; 
         }
         sql1 += param[param.length-1];
-        System.out.println(sql1);
         
         // adicionando ? aos valores
         for(int x=0; x<valor.length-1; x++){
@@ -199,11 +261,9 @@ public class ManipuladorDB {
             sql2 += ",";
         }
         sql2 += "?";
-        System.out.println(sql2);
         
         // juntando td
         sql = "insert into "+tabela+" ("+sql1+") values ("+sql2+");";
-        System.out.println(sql);
         
         try {
             pst = conexao.prepareStatement(sql);
@@ -231,9 +291,7 @@ public class ManipuladorDB {
             }
             sql1 += param[param.length-1]+" = ?";
         }
-        System.out.println(sql1);
-        
-        
+ 
         // criando a parte do sql "where *parametroPesquisa = valorPesquisa*"
         if (paramPesquisa.length == 1){sql2 += paramPesquisa[0]+" = ?";}
         else{
@@ -243,11 +301,9 @@ public class ManipuladorDB {
             }
             sql2 += param[param.length-1]+" = "+valor[valor.length-1];
         }
-        System.out.println(sql2);
         
         // montando o sql final
         sql = "UPDATE "+tabela+" SET "+sql1+" WHERE "+sql2;
-        System.out.println(sql);
         
         // criando o preparedStatement
         try {
@@ -280,4 +336,5 @@ public class ManipuladorDB {
         }
     }
 
+    
 }
