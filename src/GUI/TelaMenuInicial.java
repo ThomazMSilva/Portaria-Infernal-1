@@ -834,7 +834,7 @@ public class TelaMenuInicial extends javax.swing.JFrame {
     private void colocarNaTabela(String tabela,String[] colunas){
         
         DefaultTableModel dtm = (DefaultTableModel) this.tabela1.getModel();
-        ArrayList<Object[]> lista; //Melhor jeito?
+        ArrayList<Object[]> lista; // TODO: Melhor jeito?
         Object[] data = new Object[colunas.length];
         
         // zerando colunas e linhas
@@ -925,6 +925,7 @@ public class TelaMenuInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_checkBoxFiltros_nomeActionPerformed
 
+    //** Método modificado
     private void btn_pesquiseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquiseActionPerformed
         
         DefaultTableModel dtm = (DefaultTableModel) this.tabela1.getModel();
@@ -1001,6 +1002,7 @@ public class TelaMenuInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_inserirContatoPrestadorActionPerformed
 
+    //** Método modificado
     private void btn_InserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_InserirActionPerformed
         String tabela="";
         ArrayList<String> parametros = new ArrayList();
