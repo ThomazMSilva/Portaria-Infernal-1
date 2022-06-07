@@ -1,7 +1,6 @@
 package GUI;
 package DAO;
 import DAO.ManipuladorDB;
-import javax.swing.JOptionPane;
 
 public class TelaLogin extends javax.swing.JFrame {
 
@@ -138,23 +137,22 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btn_entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_entrarActionPerformed
         
+        System.out.println(this.Slider_porteiro_adm.getValue());
         //checando se o usuário é um administrador ou porteiro
         if (this.Slider_porteiro_adm.getValue() == 0){
             boolean resp = this.mdb.checarLoginPorteiro(this.txt_nome.getText(),String.valueOf(this.txt_senha.getPassword()) );
-            if(resp){
-                JOptionPane.showMessageDialog(null, "LOGADO COM SUCESSO\n BEM VINDO PORTEIRO!");
-                this.dispose();
+            System.out.println(String.valueOf(this.txt_senha.getPassword()));
+            System.out.println("checando porteiro: "+resp);
+            if(resp){this.dispose();
                 TelaMenuInicial menu1 = new TelaMenuInicial();
                 menu1.setVisible(true);}
-            else{JOptionPane.showMessageDialog(null, "CADASTRO NÃO RECONHECIDO\nTENTE NOVAMENTE!");}
         } else{
             boolean resp = this.mdb.checarLoginAdm(this.txt_nome.getText(),String.valueOf(this.txt_senha.getPassword()) );
-            if(resp){
-                JOptionPane.showMessageDialog(null, "LOGADO COM SUCESSO\n BEM VINDO ADMINISTRADOR!");
-                this.dispose();
+            System.out.println(String.valueOf(this.txt_senha.getPassword()));
+            System.out.println("checando adm"+resp);
+            if(resp){this.dispose();
                 TelaMenuInicial menu1 = new TelaMenuInicial();
                 menu1.setVisible(true);}
-            else{JOptionPane.showMessageDialog(null, "CADASTRO NÃO RECONHECIDO\nTENTE NOVAMENTE!");}
         }
     }//GEN-LAST:event_btn_entrarActionPerformed
 

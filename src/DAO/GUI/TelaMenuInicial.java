@@ -110,8 +110,8 @@ public class TelaMenuInicial extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JSeparator();
         btn_pesquise = new javax.swing.JButton();
         Combobox_colunasConsulta = new javax.swing.JComboBox<>();
-        tgl_btn_buscaExata = new javax.swing.JToggleButton();
         jSeparator2 = new javax.swing.JSeparator();
+        ComboBox_tipo_pesquisa = new javax.swing.JComboBox<>();
         painel2 = new javax.swing.JPanel();
         lblCameras = new javax.swing.JLabel();
         lblTelaDeCameras = new javax.swing.JLabel();
@@ -258,7 +258,9 @@ public class TelaMenuInicial extends javax.swing.JFrame {
         painel1.setRequestFocusEnabled(false);
         painel1.setVisible(false);
 
+        jLabel20.setBackground(new java.awt.Color(255, 255, 255));
         jLabel20.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel20.setText("TABELA DE REGISTROS");
 
@@ -417,8 +419,8 @@ public class TelaMenuInicial extends javax.swing.JFrame {
             }
         });
 
-        tgl_btn_buscaExata.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
-        tgl_btn_buscaExata.setText("BUSCA EXATA");
+        ComboBox_tipo_pesquisa.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
+        ComboBox_tipo_pesquisa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BUSCA EXATA", "BUSCA APROXIMADA", "BUSCA GERAL" }));
 
         javax.swing.GroupLayout subPanelConsultarLayout = new javax.swing.GroupLayout(subPanelConsultar);
         subPanelConsultar.setLayout(subPanelConsultarLayout);
@@ -427,6 +429,7 @@ public class TelaMenuInicial extends javax.swing.JFrame {
             .addGroup(subPanelConsultarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(subPanelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ComboBox_tipo_pesquisa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(subPanelConsultarLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jSeparator2))
@@ -437,8 +440,7 @@ public class TelaMenuInicial extends javax.swing.JFrame {
                     .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txt_filtros_consulta, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btn_pesquise, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Combobox_colunasConsulta, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tgl_btn_buscaExata, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Combobox_colunasConsulta, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         subPanelConsultarLayout.setVerticalGroup(
@@ -448,8 +450,8 @@ public class TelaMenuInicial extends javax.swing.JFrame {
                 .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tgl_btn_buscaExata)
+                .addGap(5, 5, 5)
+                .addComponent(ComboBox_tipo_pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Combobox_colunasConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -665,6 +667,30 @@ public class TelaMenuInicial extends javax.swing.JFrame {
         }
     }
 
+    private void colocarNaTabelaAdv(String tabela,String[] colunas,String param[],String valor[], boolean like){
+        
+        DefaultTableModel dtm = (DefaultTableModel) this.tabela1.getModel();
+        ArrayList<Object[]> lista;
+        Object[] data = new Object[colunas.length];
+        
+        // zerando colunas e linhas
+        dtm.setColumnCount(0);
+        dtm.setRowCount(0);
+        
+        // add colunas
+        for (int x=0; x< colunas.length;x++){
+            dtm.addColumn(colunas[x]);
+        }
+
+        lista = dbm.consultarDadosAdv(tabela, param, valor, true);
+        
+        // add info no data
+        for(int x=0; x< lista.size();x++){
+            for (int z=0; z<data.length;z++){data[z] = lista.get(x)[z];}
+            dtm.addRow(data);
+        }
+    }
+
  
     // métodos automáticos
     
@@ -726,7 +752,8 @@ public class TelaMenuInicial extends javax.swing.JFrame {
         this.setPaineisInvisiveis();
         painelInicial.setVisible(true);
     }//GEN-LAST:event_menuBarRadio0ActionPerformed
-  
+
+    // consulta
     private void btn_pesquiseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquiseActionPerformed
         
         DefaultTableModel dtm = (DefaultTableModel) this.tabela1.getModel();
@@ -781,13 +808,23 @@ public class TelaMenuInicial extends javax.swing.JFrame {
         String[] coluna = new String[tam];
         coluna = colunasTb[indexColunasTab];
         
-        if (this.tgl_btn_buscaExata.isSelected()){
-            String[] param = {this.colunas[indexColunasTab][this.Combobox_colunasConsulta.getSelectedIndex()]};
-            String[] valor = {this.txt_filtros_consulta.getText().toLowerCase().trim()};
-            this.colocarNaTabelaAdv(tabela,coluna, param, valor);
-        }
-        else {
-            this.colocarNaTabela(tabela, coluna);
+        switch (this.ComboBox_tipo_pesquisa.getSelectedIndex()){
+            case 0: // busca exata
+                String[] param = {this.colunas[indexColunasTab][this.Combobox_colunasConsulta.getSelectedIndex()]};
+                String[] valor = {this.txt_filtros_consulta.getText().toLowerCase().trim()};
+                this.colocarNaTabelaAdv(tabela,coluna, param, valor);
+                break;
+            case 1: // busca aproximada
+                String[] param1 = {this.colunas[indexColunasTab][this.Combobox_colunasConsulta.getSelectedIndex()]};
+                String[] valor1 = {this.txt_filtros_consulta.getText().toLowerCase().trim()};
+                this.colocarNaTabelaAdv(tabela,coluna, param1, valor1, true);
+                break;
+            case 2: // busca geral
+                this.colocarNaTabela(tabela, coluna);
+                break;
+            default:
+                break;
+                    
         }
         
         
@@ -805,7 +842,8 @@ public class TelaMenuInicial extends javax.swing.JFrame {
     private void txt_inserirContatoPrestadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_inserirContatoPrestadorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_inserirContatoPrestadorActionPerformed
-  
+
+    // inserção
     private void btn_InserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_InserirActionPerformed
         String tabela="";
         ArrayList<String> parametros = new ArrayList();
@@ -892,6 +930,7 @@ public class TelaMenuInicial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboBoxNovaInsercao;
     private javax.swing.JComboBox<String> ComboBoxTabelas;
+    private javax.swing.JComboBox<String> ComboBox_tipo_pesquisa;
     private javax.swing.JComboBox<String> Combobox_colunasConsulta;
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JScrollPane ScrollPaneTabela;
@@ -936,7 +975,6 @@ public class TelaMenuInicial extends javax.swing.JFrame {
     private javax.swing.JPanel subPanelConsultar;
     private javax.swing.JPanel subPanelInserir;
     private javax.swing.JTable tabela1;
-    private javax.swing.JToggleButton tgl_btn_buscaExata;
     private javax.swing.JTextArea txt_area_ativRecentes;
     private javax.swing.JTextArea txt_area_atualizacao;
     private javax.swing.JTextArea txt_area_novidades;

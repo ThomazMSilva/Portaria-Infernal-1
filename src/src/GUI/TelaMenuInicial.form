@@ -373,8 +373,14 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel20">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Rockwell" size="18" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="TABELA DE REGISTROS"/>
@@ -599,6 +605,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="ComboBox_tipo_pesquisa" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                                   <Component id="jSeparator2" max="32767" attributes="0"/>
@@ -611,7 +618,6 @@
                               <Component id="txt_filtros_consulta" alignment="1" max="32767" attributes="0"/>
                               <Component id="btn_pesquise" alignment="1" max="32767" attributes="0"/>
                               <Component id="Combobox_colunasConsulta" alignment="1" max="32767" attributes="0"/>
-                              <Component id="tgl_btn_buscaExata" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -624,8 +630,8 @@
                           <Component id="jLabel21" min="-2" pref="32" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="tgl_btn_buscaExata" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                          <Component id="ComboBox_tipo_pesquisa" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="Combobox_colunasConsulta" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -726,15 +732,24 @@
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JToggleButton" name="tgl_btn_buscaExata">
+                <Component class="javax.swing.JSeparator" name="jSeparator2">
+                </Component>
+                <Component class="javax.swing.JComboBox" name="ComboBox_tipo_pesquisa">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Rockwell" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="BUSCA EXATA"/>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="3">
+                        <StringItem index="0" value="BUSCA EXATA"/>
+                        <StringItem index="1" value="BUSCA APROXIMADA"/>
+                        <StringItem index="2" value="BUSCA GERAL"/>
+                      </StringArray>
+                    </Property>
                   </Properties>
-                </Component>
-                <Component class="javax.swing.JSeparator" name="jSeparator2">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
