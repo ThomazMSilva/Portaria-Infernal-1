@@ -2,7 +2,6 @@ package DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
-import Backend.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -96,12 +95,11 @@ public class ManipuladorDB {
                 sqlParte2 += " AND ";
             }
             sqlParte2 += (param[param.length-1]+" = ?");
-            System.out.println(sqlParte2);
             
             // juntando o sql ao sql2
             sql += tabela+" WHERE "+sqlParte2;
         }
-        System.out.println(sql);
+        
         try {
             pst = conexao.prepareStatement(sql);
             // adicionando valores dos parametros de pesquisa
@@ -264,7 +262,6 @@ public class ManipuladorDB {
         
         // juntando td
         sql = "insert into "+tabela+" ("+sql1+") values ("+sql2+");";
-        
         try {
             pst = conexao.prepareStatement(sql);
             // adicionando valores aos ?
