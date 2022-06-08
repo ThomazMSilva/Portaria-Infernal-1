@@ -23,7 +23,7 @@ create table tb_prestador(
 create table tb_residente (
 	id_residente int auto_increment,
     id_casa int not null,
-    cpf_cliente bigint(11) unique,
+    cpf_residente bigint(11) unique,
     nome_residente varchar(50),
     contato_residente varchar(50),
     
@@ -49,7 +49,6 @@ create table tb_correspondencia (
 	id_correspondencia int auto_increment,
     id_destinatario_correspondencia int not null,
     tipo_correspondencia varchar(50),
-    recebido_correspondencia datetime,
     nome_entregador_correspondencia varchar(50),
     cpf_entregador_correspondencia bigint(11),
     

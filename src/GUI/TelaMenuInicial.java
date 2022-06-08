@@ -1,13 +1,10 @@
 package GUI;
 
 import DAO.ManipuladorDB;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import Backend.*;
-import java.util.HashSet;
-import java.util.Set;
 import javax.swing.ButtonGroup;
-import javax.swing.ComboBoxModel;
-import javax.swing.Popup;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class TelaMenuInicial extends javax.swing.JFrame {
@@ -16,53 +13,53 @@ public class TelaMenuInicial extends javax.swing.JFrame {
     private ButtonGroup grupoPaineis = new ButtonGroup(); 
     private ManipuladorDB dbm;
     private String[][] colunas = {
-        // correspondência
+        // correspondência 0
         {
-            "id_correspondencia",
-            "id_destinatario_correspondencia",
-            "tipo_correspondencia",
-            "recebido_correspondencia",
-            "nome_entregador_correspondencia",
-            "cpf_entregador_correspondencia"
+            "id_correspondencia",              // 0
+            "id_destinatario_correspondencia", // 1
+            "tipo_correspondencia",            // 2
+            "nome_entregador_correspondencia", // 3
+            "cpf_entregador_correspondencia"   // 4
         },
-        // prestador
+        // prestador 1
         {
-            "id_prestador",
-            "cpf_prestador",
-            "nome_prestador",
-            "contato_prestador"  
+            "id_prestador",      // 0
+            "cpf_prestador",     // 1
+            "nome_prestador",    // 2
+            "contato_prestador"  // 3
         },
-        // serviço
+        // serviço 2
         {
-            "id_servico",
-            "id_prestador",
-            "id_contratante",
-            "tipo",
-            "data_agendada",
-            "data_recebida"
+            "id_servico",        // 0
+            "id_prestador",      // 1
+            "id_contratante",    // 2
+            "tipo",              // 3
+            "data_agendada",     // 4
+            "data_recebida"      // 5
         },
-        // agenda
+        // agenda 3
         {
-            "id_agenda",
-            "compromisso_agenda"
+            "id_agenda",         // 0
+            "compromisso_agenda" // 1
         },
-        // residente
+        // residente 4
         {
-            "id_residente",
-            "id_casa_residente",
-            "cpf_residente",
-            "nome_residente",
-            "contato_residente"
+            "id_residente",      // 0
+            "id_casa",           // 1
+            "cpf_residente",     // 2
+            "nome_residente",    // 3
+            "contato_residente"  // 4
         }
     };
 
     public TelaMenuInicial() {
         
         initComponents();
-        this.setLocationRelativeTo(null);
         dbm = new ManipuladorDB("banco_portaria");
         this.setPaineisInvisiveis();
-        painelInicial.setVisible(true);
+        this.setSubPaineisInsercaoInvisiveis();
+        this.painelInicial.setVisible(true);
+        this.painel_inserirCorrespondencia.setVisible(true);
                
     }
 
@@ -92,13 +89,31 @@ public class TelaMenuInicial extends javax.swing.JFrame {
         ComboBoxNovaInsercao = new javax.swing.JComboBox<>();
         lbl_novaInsercao = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
-        painel_InserirPrestador = new javax.swing.JPanel();
+        painel_inserirCorrespondencia = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txt_inserir_id_morador_correspondencia = new javax.swing.JTextField();
+        CheckBox_inserir_nome_entregador = new javax.swing.JCheckBox();
+        txt_inserir_nome_entregador_correspondencia = new javax.swing.JTextField();
+        CheckBox_inserir_cpf_entregador = new javax.swing.JCheckBox();
+        txt_inserir_cpf_entregador_correspondencia = new javax.swing.JTextField();
+        txt_inserir_desc_correspondencia = new javax.swing.JTextField();
+        painel_inserirPrestador = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txt_inserirNomePrestador = new javax.swing.JTextField();
+        txt_inserir_nome_prestador = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
-        txt_inserirCpfPrestador = new javax.swing.JTextField();
+        txt_inserir_cpf_prestador = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
-        txt_inserirContatoPrestador = new javax.swing.JTextField();
+        txt_inserir_contato_prestador = new javax.swing.JTextField();
+        painel_inserirResidente = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        txt_inserir_id_casa_residente = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txt_inserir_nome_residente = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txt_inserir_cpf_residente = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txt_inserir_contato_residente = new javax.swing.JTextField();
         jSeparator7 = new javax.swing.JSeparator();
         btn_Inserir = new javax.swing.JButton();
         subPanelConsultar = new javax.swing.JPanel();
@@ -110,8 +125,8 @@ public class TelaMenuInicial extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JSeparator();
         btn_pesquise = new javax.swing.JButton();
         Combobox_colunasConsulta = new javax.swing.JComboBox<>();
-        tgl_btn_buscaExata = new javax.swing.JToggleButton();
         jSeparator2 = new javax.swing.JSeparator();
+        ComboBox_tipo_pesquisa = new javax.swing.JComboBox<>();
         painel2 = new javax.swing.JPanel();
         lblCameras = new javax.swing.JLabel();
         lblTelaDeCameras = new javax.swing.JLabel();
@@ -128,12 +143,15 @@ public class TelaMenuInicial extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela Principal");
         setMaximumSize(new java.awt.Dimension(1399, 729));
-        setMinimumSize(new java.awt.Dimension(760, 560));
+        setMinimumSize(new java.awt.Dimension(760, 550));
+        setPreferredSize(new java.awt.Dimension(760, 550));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         painelInicial.setToolTipText("");
+        painelInicial.setMinimumSize(new java.awt.Dimension(740, 550));
         painelInicial.setOpaque(false);
-        painelInicial.setPreferredSize(new java.awt.Dimension(740, 560));
+        painelInicial.setPreferredSize(new java.awt.Dimension(740, 550));
 
         lbl_bemVindo.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
         lbl_bemVindo.setForeground(new java.awt.Color(255, 255, 255));
@@ -246,19 +264,23 @@ public class TelaMenuInicial extends javax.swing.JFrame {
                 .addComponent(lbl_bemVindo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(TabbedPaneInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
 
         painelInicial.setVisible(true);
 
         getContentPane().add(painelInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        painel1.setMaximumSize(new java.awt.Dimension(1399, 729));
+        painel1.setMinimumSize(new java.awt.Dimension(740, 550));
         painel1.setOpaque(false);
-        painel1.setPreferredSize(new java.awt.Dimension(740, 500));
+        painel1.setPreferredSize(new java.awt.Dimension(740, 550));
         painel1.setRequestFocusEnabled(false);
         painel1.setVisible(false);
 
+        jLabel20.setBackground(new java.awt.Color(255, 255, 255));
         jLabel20.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel20.setText("TABELA DE REGISTROS");
 
@@ -266,23 +288,98 @@ public class TelaMenuInicial extends javax.swing.JFrame {
         tabela1.setRowSelectionAllowed(false);
         ScrollPaneTabela.setViewportView(tabela1);
 
+        subPanelInserir.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         ComboBoxNovaInsercao.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         ComboBoxNovaInsercao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NOVA CORRESPONDÊNCIA", "NOVO PRESTADOR DE SERVIÇO", "NOVO RESIDENTE" }));
+        ComboBoxNovaInsercao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBoxNovaInsercaoActionPerformed(evt);
+            }
+        });
+        subPanelInserir.add(ComboBoxNovaInsercao, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 40, -1, -1));
 
         lbl_novaInsercao.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         lbl_novaInsercao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_novaInsercao.setText("SELECIONE O TIPO DE INSERÇÃO");
+        subPanelInserir.add(lbl_novaInsercao, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 218, 28));
+        subPanelInserir.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 73, 218, 10));
 
-        painel_InserirPrestador.setOpaque(false);
+        jLabel2.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("ID MORADOR");
+
+        jLabel3.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("DESC. DA CORRESPONDENCIA");
+
+        CheckBox_inserir_nome_entregador.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
+        CheckBox_inserir_nome_entregador.setText("NOME DO ENTREGADOR");
+        CheckBox_inserir_nome_entregador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckBox_inserir_nome_entregadorActionPerformed(evt);
+            }
+        });
+
+        CheckBox_inserir_cpf_entregador.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
+        CheckBox_inserir_cpf_entregador.setText("CPF ENTREGADOR");
+
+        javax.swing.GroupLayout painel_inserirCorrespondenciaLayout = new javax.swing.GroupLayout(painel_inserirCorrespondencia);
+        painel_inserirCorrespondencia.setLayout(painel_inserirCorrespondenciaLayout);
+        painel_inserirCorrespondenciaLayout.setHorizontalGroup(
+            painel_inserirCorrespondenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_inserirCorrespondenciaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painel_inserirCorrespondenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txt_inserir_nome_entregador_correspondencia)
+                    .addComponent(CheckBox_inserir_nome_entregador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txt_inserir_desc_correspondencia, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                    .addGroup(painel_inserirCorrespondenciaLayout.createSequentialGroup()
+                        .addGroup(painel_inserirCorrespondenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txt_inserir_cpf_entregador_correspondencia)
+                            .addComponent(CheckBox_inserir_cpf_entregador, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(painel_inserirCorrespondenciaLayout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_inserir_id_morador_correspondencia)))
+                .addContainerGap())
+        );
+        painel_inserirCorrespondenciaLayout.setVerticalGroup(
+            painel_inserirCorrespondenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_inserirCorrespondenciaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painel_inserirCorrespondenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_inserir_id_morador_correspondencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_inserir_desc_correspondencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CheckBox_inserir_nome_entregador, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_inserir_nome_entregador_correspondencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CheckBox_inserir_cpf_entregador)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(txt_inserir_cpf_entregador_correspondencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        subPanelInserir.add(painel_inserirCorrespondencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 210, 210));
+
+        painel_inserirPrestador.setOpaque(false);
 
         jLabel1.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("NOME");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
-        txt_inserirNomePrestador.addActionListener(new java.awt.event.ActionListener() {
+        txt_inserir_nome_prestador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_inserirNomePrestadorActionPerformed(evt);
+                txt_inserir_nome_prestadorActionPerformed(evt);
             }
         });
 
@@ -291,9 +388,9 @@ public class TelaMenuInicial extends javax.swing.JFrame {
         jLabel23.setText("CPF");
         jLabel23.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
-        txt_inserirCpfPrestador.addActionListener(new java.awt.event.ActionListener() {
+        txt_inserir_cpf_prestador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_inserirCpfPrestadorActionPerformed(evt);
+                txt_inserir_cpf_prestadorActionPerformed(evt);
             }
         });
 
@@ -302,43 +399,114 @@ public class TelaMenuInicial extends javax.swing.JFrame {
         jLabel24.setText("CONTATO");
         jLabel24.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
-        txt_inserirContatoPrestador.addActionListener(new java.awt.event.ActionListener() {
+        txt_inserir_contato_prestador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_inserirContatoPrestadorActionPerformed(evt);
+                txt_inserir_contato_prestadorActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout painel_InserirPrestadorLayout = new javax.swing.GroupLayout(painel_InserirPrestador);
-        painel_InserirPrestador.setLayout(painel_InserirPrestadorLayout);
-        painel_InserirPrestadorLayout.setHorizontalGroup(
-            painel_InserirPrestadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painel_InserirPrestadorLayout.createSequentialGroup()
+        javax.swing.GroupLayout painel_inserirPrestadorLayout = new javax.swing.GroupLayout(painel_inserirPrestador);
+        painel_inserirPrestador.setLayout(painel_inserirPrestadorLayout);
+        painel_inserirPrestadorLayout.setHorizontalGroup(
+            painel_inserirPrestadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_inserirPrestadorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painel_InserirPrestadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_inserirNomePrestador, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(painel_inserirPrestadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txt_inserir_nome_prestador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txt_inserirContatoPrestador, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txt_inserirCpfPrestador))
+                    .addComponent(txt_inserir_contato_prestador, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txt_inserir_cpf_prestador))
                 .addContainerGap())
         );
-        painel_InserirPrestadorLayout.setVerticalGroup(
-            painel_InserirPrestadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painel_InserirPrestadorLayout.createSequentialGroup()
+        painel_inserirPrestadorLayout.setVerticalGroup(
+            painel_inserirPrestadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_inserirPrestadorLayout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_inserirNomePrestador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_inserir_nome_prestador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_inserirCpfPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_inserir_cpf_prestador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_inserirContatoPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(txt_inserir_contato_prestador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
+
+        subPanelInserir.add(painel_inserirPrestador, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 89, 218, 210));
+
+        jLabel4.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("CASA");
+
+        jLabel5.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("CPF");
+
+        jLabel6.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("CONTATO");
+
+        jLabel7.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("NOME");
+
+        javax.swing.GroupLayout painel_inserirResidenteLayout = new javax.swing.GroupLayout(painel_inserirResidente);
+        painel_inserirResidente.setLayout(painel_inserirResidenteLayout);
+        painel_inserirResidenteLayout.setHorizontalGroup(
+            painel_inserirResidenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_inserirResidenteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painel_inserirResidenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painel_inserirResidenteLayout.createSequentialGroup()
+                        .addGroup(painel_inserirResidenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txt_inserir_id_casa_residente, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(painel_inserirResidenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txt_inserir_cpf_residente, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)))
+                    .addComponent(txt_inserir_nome_residente)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txt_inserir_contato_residente))
+                .addContainerGap())
+            .addGroup(painel_inserirResidenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painel_inserirResidenteLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        painel_inserirResidenteLayout.setVerticalGroup(
+            painel_inserirResidenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_inserirResidenteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painel_inserirResidenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painel_inserirResidenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_inserir_id_casa_residente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_inserir_cpf_residente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addComponent(txt_inserir_nome_residente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_inserir_contato_residente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
+            .addGroup(painel_inserirResidenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painel_inserirResidenteLayout.createSequentialGroup()
+                    .addGap(74, 74, 74)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(112, Short.MAX_VALUE)))
+        );
+
+        subPanelInserir.add(painel_inserirResidente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 210, 210));
+        subPanelInserir.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 210, 10));
 
         btn_Inserir.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         btn_Inserir.setText("INSERIR");
@@ -347,39 +515,7 @@ public class TelaMenuInicial extends javax.swing.JFrame {
                 btn_InserirActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout subPanelInserirLayout = new javax.swing.GroupLayout(subPanelInserir);
-        subPanelInserir.setLayout(subPanelInserirLayout);
-        subPanelInserirLayout.setHorizontalGroup(
-            subPanelInserirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(subPanelInserirLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(subPanelInserirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_novaInsercao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ComboBoxNovaInsercao, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator6)
-                    .addComponent(painel_InserirPrestador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator7)
-                    .addComponent(btn_Inserir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        subPanelInserirLayout.setVerticalGroup(
-            subPanelInserirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(subPanelInserirLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbl_novaInsercao, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ComboBoxNovaInsercao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painel_InserirPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_Inserir)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
+        subPanelInserir.add(btn_Inserir, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 210, -1));
 
         TabbedPaneOpcoes.addTab("INSERIR", subPanelInserir);
 
@@ -395,7 +531,7 @@ public class TelaMenuInicial extends javax.swing.JFrame {
         });
 
         ComboBoxTabelas.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
-        ComboBoxTabelas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CORRESPONDÊNCIA", "PRESTADOR", "RESIDENTE", "SERVIÇO", "AGENDA" }));
+        ComboBoxTabelas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CORRESPONDÊNCIA", "PRESTADOR", "SERVIÇO", "AGENDA", "RESIDENTE" }));
         ComboBoxTabelas.setToolTipText("");
         ComboBoxTabelas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         ComboBoxTabelas.addActionListener(new java.awt.event.ActionListener() {
@@ -417,8 +553,8 @@ public class TelaMenuInicial extends javax.swing.JFrame {
             }
         });
 
-        tgl_btn_buscaExata.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
-        tgl_btn_buscaExata.setText("BUSCA EXATA");
+        ComboBox_tipo_pesquisa.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
+        ComboBox_tipo_pesquisa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BUSCA EXATA", "BUSCA APROXIMADA", "BUSCA GERAL" }));
 
         javax.swing.GroupLayout subPanelConsultarLayout = new javax.swing.GroupLayout(subPanelConsultar);
         subPanelConsultar.setLayout(subPanelConsultarLayout);
@@ -427,6 +563,7 @@ public class TelaMenuInicial extends javax.swing.JFrame {
             .addGroup(subPanelConsultarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(subPanelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ComboBox_tipo_pesquisa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(subPanelConsultarLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jSeparator2))
@@ -437,8 +574,7 @@ public class TelaMenuInicial extends javax.swing.JFrame {
                     .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txt_filtros_consulta, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btn_pesquise, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Combobox_colunasConsulta, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tgl_btn_buscaExata, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Combobox_colunasConsulta, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         subPanelConsultarLayout.setVerticalGroup(
@@ -446,10 +582,10 @@ public class TelaMenuInicial extends javax.swing.JFrame {
             .addGroup(subPanelConsultarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tgl_btn_buscaExata)
+                .addGap(5, 5, 5)
+                .addComponent(ComboBox_tipo_pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Combobox_colunasConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -464,7 +600,7 @@ public class TelaMenuInicial extends javax.swing.JFrame {
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_pesquise, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         TabbedPaneOpcoes.addTab("CONSULTAR", subPanelConsultar);
@@ -492,15 +628,20 @@ public class TelaMenuInicial extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(painel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(TabbedPaneOpcoes)
-                    .addComponent(ScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addComponent(ScrollPaneTabela))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         getContentPane().add(painel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        painel2.setMinimumSize(new java.awt.Dimension(740, 550));
         painel2.setOpaque(false);
-        painel2.setPreferredSize(new java.awt.Dimension(740, 500));
+        painel2.setPreferredSize(new java.awt.Dimension(740, 550));
 
+        lblCameras.setBackground(new java.awt.Color(255, 255, 255));
+        lblCameras.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
+        lblCameras.setForeground(new java.awt.Color(255, 255, 255));
+        lblCameras.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCameras.setText("CÂMERAS");
 
         lblTelaDeCameras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/conjuntoCameras.png"))); // NOI18N
@@ -516,6 +657,11 @@ public class TelaMenuInicial extends javax.swing.JFrame {
         btnOutros.setText("OUTROS BOTÕES, TALVEZ");
 
         btnPrintar.setText("PRINTAR");
+        btnPrintar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painel2Layout = new javax.swing.GroupLayout(painel2);
         painel2.setLayout(painel2Layout);
@@ -556,11 +702,11 @@ public class TelaMenuInicial extends javax.swing.JFrame {
         getContentPane().add(painel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         lblFundin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFundin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/foto_fundo_vemelho_ondinha.png"))); // NOI18N
+        lblFundin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/foto_fundo_vemelho_ondinha1080.png"))); // NOI18N
         lblFundin.setMaximumSize(new java.awt.Dimension(1399, 729));
         lblFundin.setMinimumSize(new java.awt.Dimension(740, 538));
         lblFundin.setPreferredSize(new java.awt.Dimension(745, 538));
-        getContentPane().add(lblFundin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(lblFundin, new org.netbeans.lib.awtextra.AbsoluteConstraints(-70, -42, 830, 580));
 
         menuBarConfig.setText("TELAS");
 
@@ -604,7 +750,8 @@ public class TelaMenuInicial extends javax.swing.JFrame {
 
         setJMenuBar(MenuBar);
 
-        pack();
+        setSize(new java.awt.Dimension(756, 600));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     // métodos criados
@@ -614,6 +761,12 @@ public class TelaMenuInicial extends javax.swing.JFrame {
         this.painel1.setVisible(false);
     }
   
+    private void setSubPaineisInsercaoInvisiveis(){
+        this.painel_inserirCorrespondencia.setVisible(false);
+        this.painel_inserirPrestador.setVisible(false);
+        this.painel_inserirResidente.setVisible(false);
+    }
+    
     private void colocarNaTabela(String tabela,String[] colunas){
         
         DefaultTableModel dtm = (DefaultTableModel) this.tabela1.getModel();
@@ -665,6 +818,44 @@ public class TelaMenuInicial extends javax.swing.JFrame {
         }
     }
 
+    private void colocarNaTabelaAdv(String tabela,String[] colunas,String param[],String valor[], boolean like){
+        
+        DefaultTableModel dtm = (DefaultTableModel) this.tabela1.getModel();
+        ArrayList<Object[]> lista;
+        Object[] data = new Object[colunas.length];
+        
+        // zerando colunas e linhas
+        dtm.setColumnCount(0);
+        dtm.setRowCount(0);
+        
+        // add colunas
+        for (int x=0; x< colunas.length;x++){
+            dtm.addColumn(colunas[x]);
+        }
+
+        lista = dbm.consultarDadosAdv(tabela, param, valor, true);
+        
+        // add info no data
+        for(int x=0; x< lista.size();x++){
+            for (int z=0; z<data.length;z++){data[z] = lista.get(x)[z];}
+            dtm.addRow(data);
+        }
+    }
+
+    private void limparInfoInsercoes(){
+        this.txt_inserir_contato_prestador.setText("");
+        this.txt_inserir_contato_residente.setText("");
+        this.txt_inserir_cpf_entregador_correspondencia.setText("");
+        this.txt_inserir_cpf_prestador.setText("");
+        this.txt_inserir_cpf_residente.setText("");
+        this.txt_inserir_desc_correspondencia.setText("");
+        this.txt_inserir_id_casa_residente.setText("");
+        this.txt_inserir_id_morador_correspondencia.setText("");
+        this.txt_inserir_nome_entregador_correspondencia.setText("");
+        this.txt_inserir_nome_prestador.setText("");
+        this.txt_inserir_nome_residente.setText("");
+        
+    }
  
     // métodos automáticos
     
@@ -678,13 +869,14 @@ public class TelaMenuInicial extends javax.swing.JFrame {
         painel2.setVisible(true);
     }//GEN-LAST:event_menuBarRadio2ActionPerformed
 
+    // opções de consulta
     private void ComboBoxTabelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxTabelasActionPerformed
         /*
         0 = CORRESPONDÊNCIA
         1 = PRESTADOR
-        2 = RESIDENTE
-        3 = SERVIÇO
-        4 = AGENDA
+        2 = SERVIÇO
+        3 = AGENDA
+        4 = RESIDENTE
         */
         
         // limpando lista anterior
@@ -702,31 +894,33 @@ public class TelaMenuInicial extends javax.swing.JFrame {
                 break;
             case 2:
                 for (int x=0; x< this.colunas[2].length;x++){
-                    this.Combobox_colunasConsulta.addItem(this.colunas[2][x].replace("_residente", "").replace("_", " "));}
+                    this.Combobox_colunasConsulta.addItem(this.colunas[2][x].replace("_servico", "").replace("_", " "));}
                 break;
             case 3:
                 for (int x=0; x< this.colunas[3].length;x++){
-                    this.Combobox_colunasConsulta.addItem(this.colunas[3][x].replace("_servico", "").replace("_", " "));}
+                    this.Combobox_colunasConsulta.addItem(this.colunas[3][x].replace("_agenda", "").replace("_", " "));}
                 break;
             case 4:
                 for (int x=0; x< this.colunas[4].length;x++){
-                    this.Combobox_colunasConsulta.addItem(this.colunas[4][x].replace("_agenda", "").replace("_", " "));}
+                    this.Combobox_colunasConsulta.addItem(this.colunas[4][x].replace("_residente", "").replace("_", " "));}
                 break;
             default:
                 this.Combobox_colunasConsulta.addItem(" ");
                 break;
         }
     }//GEN-LAST:event_ComboBoxTabelasActionPerformed
-
+    
+    // alarme
     private void btnAlarmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlarmeActionPerformed
-        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "UM AVISO DE EMERGÊNCIA FOI ENVIADO\nPARA A POLÍCIA LOCAL!");
     }//GEN-LAST:event_btnAlarmeActionPerformed
 
     private void menuBarRadio0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBarRadio0ActionPerformed
         this.setPaineisInvisiveis();
         painelInicial.setVisible(true);
     }//GEN-LAST:event_menuBarRadio0ActionPerformed
-  
+
+    // consulta
     private void btn_pesquiseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquiseActionPerformed
         
         DefaultTableModel dtm = (DefaultTableModel) this.tabela1.getModel();
@@ -781,63 +975,96 @@ public class TelaMenuInicial extends javax.swing.JFrame {
         String[] coluna = new String[tam];
         coluna = colunasTb[indexColunasTab];
         
-        if (this.tgl_btn_buscaExata.isSelected()){
-            String[] param = {this.colunas[indexColunasTab][this.Combobox_colunasConsulta.getSelectedIndex()]};
-            String[] valor = {this.txt_filtros_consulta.getText().toLowerCase().trim()};
-            this.colocarNaTabelaAdv(tabela,coluna, param, valor);
-        }
-        else {
-            this.colocarNaTabela(tabela, coluna);
+        switch (this.ComboBox_tipo_pesquisa.getSelectedIndex()){
+            case 0: // busca exata
+                String[] param = {this.colunas[indexColunasTab][this.Combobox_colunasConsulta.getSelectedIndex()]};
+                String[] valor = {this.txt_filtros_consulta.getText().toLowerCase().trim()};
+                this.colocarNaTabelaAdv(tabela,coluna, param, valor);
+                break;
+            case 1: // busca aproximada
+                String[] param1 = {this.colunas[indexColunasTab][this.Combobox_colunasConsulta.getSelectedIndex()]};
+                String[] valor1 = {this.txt_filtros_consulta.getText().toLowerCase().trim()};
+                this.colocarNaTabelaAdv(tabela,coluna, param1, valor1, true);
+                break;
+            case 2: // busca geral
+                this.colocarNaTabela(tabela, coluna);
+                break;
+            default:
+                break;
+                    
         }
         
         
         this.tabela1.setEnabled(false);
     }//GEN-LAST:event_btn_pesquiseActionPerformed
 
-    private void txt_inserirNomePrestadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_inserirNomePrestadorActionPerformed
+    private void txt_inserir_nome_prestadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_inserir_nome_prestadorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_inserirNomePrestadorActionPerformed
+    }//GEN-LAST:event_txt_inserir_nome_prestadorActionPerformed
 
-    private void txt_inserirCpfPrestadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_inserirCpfPrestadorActionPerformed
+    private void txt_inserir_cpf_prestadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_inserir_cpf_prestadorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_inserirCpfPrestadorActionPerformed
+    }//GEN-LAST:event_txt_inserir_cpf_prestadorActionPerformed
 
-    private void txt_inserirContatoPrestadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_inserirContatoPrestadorActionPerformed
+    private void txt_inserir_contato_prestadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_inserir_contato_prestadorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_inserirContatoPrestadorActionPerformed
-  
+    }//GEN-LAST:event_txt_inserir_contato_prestadorActionPerformed
+
+    // inserção
     private void btn_InserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_InserirActionPerformed
         String tabela="";
         ArrayList<String> parametros = new ArrayList();
         ArrayList<String> valores = new ArrayList();
+        
         switch (this.ComboBoxNovaInsercao.getSelectedIndex()){
-            case 1:
+            case 1: // prestador
+                
                 parametros.add(this.colunas[1][2]); // nome prestador
                 parametros.add(this.colunas[1][1]); // cpf prestador
                 parametros.add(this.colunas[1][3]); // contato prestador
                 
-                valores.add(this.txt_inserirNomePrestador.getText());
-                valores.add(this.txt_inserirCpfPrestador.getText());
-                valores.add(this.txt_inserirContatoPrestador.getText());
+                valores.add(this.txt_inserir_nome_prestador.getText().toLowerCase().trim());
+                valores.add(this.txt_inserir_cpf_prestador.getText().trim());
+                valores.add(this.txt_inserir_contato_prestador.getText().trim());
                 
                 tabela = "tb_prestador";
                 break;
-            case 2:
-                parametros.add("tipo_correspondencia");
-                parametros.add("recebido_correspondencia");
-                parametros.add("entregador_correspondencia");
-                parametros.add("cpf_entregador_correspondencia");
+                
+            case 0: // correspondencia
+                
+                parametros.add(this.colunas[0][1]); // id morador
+                parametros.add(this.colunas[0][2]); // descrição da correspondência
+                
+                valores.add(this.txt_inserir_id_morador_correspondencia.getText().trim());
+                valores.add(this.txt_inserir_desc_correspondencia.getText().trim());
+                
+                if(this.CheckBox_inserir_nome_entregador.isSelected()){
+                    parametros.add(this.colunas[0][3]); // nome entregador
+                    valores.add(this.txt_inserir_nome_entregador_correspondencia.getText().toLowerCase().trim());
+                }
+                if(this.CheckBox_inserir_cpf_entregador.isSelected()){
+                    parametros.add(this.colunas[0][4]); // cpf entregador
+                    valores.add(this.txt_inserir_cpf_entregador_correspondencia.getText().trim());
+                }
+
                 tabela = "tb_correspondencia";
-                
-                
-                
                 break;
-            case 3:
-                parametros.add("casa_residente");
-                parametros.add("nome_residente");
-                parametros.add("raca_residente");
+                
+            case 2: // residente
+                parametros.add(this.colunas[4][1]); // casa residente
+                parametros.add(this.colunas[4][2]); // cpf residente
+                parametros.add(this.colunas[4][3]); // nome residente
+                parametros.add(this.colunas[4][4]); // contato residente
+                
+                
+                valores.add(this.txt_inserir_id_casa_residente.getText());
+                valores.add(this.txt_inserir_cpf_residente.getText());
+                valores.add(this.txt_inserir_nome_residente.getText().toLowerCase());
+                valores.add(this.txt_inserir_contato_residente.getText());
+                
                 tabela = "tb_residente";
                 break;
+                
             default:
                 break;
         }
@@ -847,14 +1074,49 @@ public class TelaMenuInicial extends javax.swing.JFrame {
         for (int x=0; x<parametros.size(); x++){param[x] = parametros.get(x);}
         for (int x=0; x<valores.size(); x++){valor[x] = valores.get(x);}
         
-        if (valores.size() == parametros.size() && valores.size() > 2){this.dbm.inserirDados(tabela, param, valor);}
-        else{System.out.println("Insira todos os dados");}
+        if (valores.size() == parametros.size() && valores.size() > 2){
+            this.dbm.inserirDados(tabela, param, valor);
+            JOptionPane.showMessageDialog(null, "CADASTRO REALIZADO COM SUCESSO!");
+            this.limparInfoInsercoes();
+        }
+        else{
+            JOptionPane.showMessageDialog(null,
+                "INFORMAÇÕES INVÁLIDAS/INCOMPLETAS!"
+                + "\nTENHA CERTEZA DE PREENCHER TODOS OS REQUISITOS.");       
+        }
         
     }//GEN-LAST:event_btn_InserirActionPerformed
 
     private void txt_filtros_consultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_filtros_consultaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_filtros_consultaActionPerformed
+
+    // print
+    private void btnPrintarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintarActionPerformed
+        JOptionPane.showMessageDialog(null, "PRINT DE TELA DA CÂMERA DE SEGURANÇA\nTIRADA COM SUCESSO!");
+    }//GEN-LAST:event_btnPrintarActionPerformed
+
+    private void CheckBox_inserir_nome_entregadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBox_inserir_nome_entregadorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CheckBox_inserir_nome_entregadorActionPerformed
+
+    // visibilidade dos subPaineis
+    private void ComboBoxNovaInsercaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxNovaInsercaoActionPerformed
+        this.setSubPaineisInsercaoInvisiveis();
+        switch (this.ComboBoxNovaInsercao.getSelectedIndex()){
+            case 0: // correspondencia
+                this.painel_inserirCorrespondencia.setVisible(true);
+                break;
+            case 1: // prestador de serviço
+                this.painel_inserirPrestador.setVisible(true);
+                break;
+            case 2: // residente
+                this.painel_inserirResidente.setVisible(true);
+                break;
+            default:
+                break;
+        }
+    }//GEN-LAST:event_ComboBoxNovaInsercaoActionPerformed
 
   
     public static void main(String args[]) {
@@ -890,8 +1152,11 @@ public class TelaMenuInicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox CheckBox_inserir_cpf_entregador;
+    private javax.swing.JCheckBox CheckBox_inserir_nome_entregador;
     private javax.swing.JComboBox<String> ComboBoxNovaInsercao;
     private javax.swing.JComboBox<String> ComboBoxTabelas;
+    private javax.swing.JComboBox<String> ComboBox_tipo_pesquisa;
     private javax.swing.JComboBox<String> Combobox_colunasConsulta;
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JScrollPane ScrollPaneTabela;
@@ -903,11 +1168,17 @@ public class TelaMenuInicial extends javax.swing.JFrame {
     private javax.swing.JButton btn_Inserir;
     private javax.swing.JButton btn_pesquise;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -932,17 +1203,26 @@ public class TelaMenuInicial extends javax.swing.JFrame {
     private javax.swing.JPanel painelAtualizacao;
     private javax.swing.JPanel painelInicial;
     private javax.swing.JPanel painelNovidades;
-    private javax.swing.JPanel painel_InserirPrestador;
+    private javax.swing.JPanel painel_inserirCorrespondencia;
+    private javax.swing.JPanel painel_inserirPrestador;
+    private javax.swing.JPanel painel_inserirResidente;
     private javax.swing.JPanel subPanelConsultar;
     private javax.swing.JPanel subPanelInserir;
     private javax.swing.JTable tabela1;
-    private javax.swing.JToggleButton tgl_btn_buscaExata;
     private javax.swing.JTextArea txt_area_ativRecentes;
     private javax.swing.JTextArea txt_area_atualizacao;
     private javax.swing.JTextArea txt_area_novidades;
     private javax.swing.JTextField txt_filtros_consulta;
-    private javax.swing.JTextField txt_inserirContatoPrestador;
-    private javax.swing.JTextField txt_inserirCpfPrestador;
-    private javax.swing.JTextField txt_inserirNomePrestador;
+    private javax.swing.JTextField txt_inserir_contato_prestador;
+    private javax.swing.JTextField txt_inserir_contato_residente;
+    private javax.swing.JTextField txt_inserir_cpf_entregador_correspondencia;
+    private javax.swing.JTextField txt_inserir_cpf_prestador;
+    private javax.swing.JTextField txt_inserir_cpf_residente;
+    private javax.swing.JTextField txt_inserir_desc_correspondencia;
+    private javax.swing.JTextField txt_inserir_id_casa_residente;
+    private javax.swing.JTextField txt_inserir_id_morador_correspondencia;
+    private javax.swing.JTextField txt_inserir_nome_entregador_correspondencia;
+    private javax.swing.JTextField txt_inserir_nome_prestador;
+    private javax.swing.JTextField txt_inserir_nome_residente;
     // End of variables declaration//GEN-END:variables
 }
