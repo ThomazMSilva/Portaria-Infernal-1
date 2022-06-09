@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+        
 
 public class TelaMenuInicialAdmin extends javax.swing.JFrame {
 
@@ -19,7 +20,9 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
             "id_destinatario_correspondencia", // 1
             "tipo_correspondencia",            // 2
             "nome_entregador_correspondencia", // 3
-            "cpf_entregador_correspondencia"   // 4
+            "cpf_entregador_correspondencia",  // 4
+            "recebido_correspondencia"         // 5
+
         },
         // prestador 1
         {
@@ -49,9 +52,23 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
             "cpf_residente",     // 2
             "nome_residente",    // 3
             "contato_residente"  // 4
-        }
+        },
+        // admin 5
+        {
+            "id_admin",          // 0
+            "cpf_admin",         // 1
+            "nome_admin",        // 2
+            "senha_admin"        // 3
+        },
+        // porteiro 6
+        {
+            "id_porteiro",       // 0   
+            "nome_porteiro",     // 1
+            "senha_porteiro",    // 2
+            "dia_servico_porteiro"//3
+        }    
     };
-
+    String[] checkbox;
     public TelaMenuInicialAdmin() {
         
         initComponents();
@@ -70,6 +87,7 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
         ComboBox_admin_tipo_alteracao2 = new javax.swing.JComboBox<>();
         jCheckBox2 = new javax.swing.JCheckBox();
+        buttonGroup_admin_deletar = new javax.swing.ButtonGroup();
         painelInicial = new javax.swing.JPanel();
         lbl_bemVindo = new javax.swing.JLabel();
         TabbedPaneInicio = new javax.swing.JTabbedPane();
@@ -133,7 +151,7 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
         subPanel_admin = new javax.swing.JPanel();
         TabbedPane_admin = new javax.swing.JTabbedPane();
         subSubPanel_admin_alterar = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jButton_admin_alterar = new javax.swing.JButton();
         CheckBox_admin_alterar_data = new javax.swing.JCheckBox();
         txt_admin_alterar_data_agendada = new javax.swing.JTextField();
         txt_admin_alterar_data_realizada = new javax.swing.JTextField();
@@ -165,19 +183,19 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
         jLabel_admin_deletar_identificação = new javax.swing.JLabel();
         jLabel_admin_deletar_id = new javax.swing.JLabel();
         jTextField_admin_deletar_id = new javax.swing.JTextField();
-        jCheckBox_admin_deletar_id = new javax.swing.JCheckBox();
         jLabel_admin_deletar_cpf = new javax.swing.JLabel();
         jTextField_admin_deletar_cpf = new javax.swing.JTextField();
-        jCheckBox_admin_deletar_cpf = new javax.swing.JCheckBox();
         jLabel_admin_deletar_nome = new javax.swing.JLabel();
-        jCheckBox_admin_deletar_nome = new javax.swing.JCheckBox();
         jTextField_admin_deletar_nome = new javax.swing.JTextField();
-        jCheckBox_admin_deletar_contato = new javax.swing.JCheckBox();
         jLabel_admin_deletar_contato = new javax.swing.JLabel();
         jTextField_admin_deletar_contato = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jButton_admin_deletar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
+        jRadioButton_admin_deletar_id = new javax.swing.JRadioButton();
+        jRadioButton_admin_deletar_cpf = new javax.swing.JRadioButton();
+        jRadioButton_admin_deletar_nome = new javax.swing.JRadioButton();
+        jRadioButton_admin_deletar_contato = new javax.swing.JRadioButton();
         painel2 = new javax.swing.JPanel();
         lblCameras = new javax.swing.JLabel();
         lblTelaDeCameras = new javax.swing.JLabel();
@@ -200,7 +218,6 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela Principal");
-        setMaximumSize(new java.awt.Dimension(1399, 729));
         setMinimumSize(new java.awt.Dimension(760, 550));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -344,6 +361,9 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
         tabela1.setOpaque(false);
         tabela1.setRowSelectionAllowed(false);
         ScrollPaneTabela.setViewportView(tabela1);
+
+        TabbedPaneOpcoes.setMaximumSize(new java.awt.Dimension(420, 420));
+        TabbedPaneOpcoes.setPreferredSize(new java.awt.Dimension(255, 420));
 
         subPanelInserir.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -636,7 +656,7 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addComponent(jSeparator2))
                     .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ComboBoxTabelas, 0, 242, Short.MAX_VALUE)
+                    .addComponent(ComboBoxTabelas, 0, 243, Short.MAX_VALUE)
                     .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator4)
                     .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -650,7 +670,7 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
             .addGroup(subPanelConsultarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(ComboBox_tipo_pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -668,19 +688,19 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_pesquise, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         TabbedPaneOpcoes.addTab("CONSULTAR", subPanelConsultar);
 
-        jButton1.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
-        jButton1.setText("ATUALIZAR DADOS");
-        jButton1.setMaximumSize(new java.awt.Dimension(80, 24));
-        jButton1.setMinimumSize(new java.awt.Dimension(80, 24));
-        jButton1.setPreferredSize(new java.awt.Dimension(80, 24));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton_admin_alterar.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        jButton_admin_alterar.setText("ATUALIZAR DADOS");
+        jButton_admin_alterar.setMaximumSize(new java.awt.Dimension(80, 24));
+        jButton_admin_alterar.setMinimumSize(new java.awt.Dimension(80, 24));
+        jButton_admin_alterar.setPreferredSize(new java.awt.Dimension(80, 24));
+        jButton_admin_alterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton_admin_alterarActionPerformed(evt);
             }
         });
 
@@ -705,6 +725,12 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
 
         jLabel_admin_alterar_contato.setFont(new java.awt.Font("Rockwell", 0, 10)); // NOI18N
         jLabel_admin_alterar_contato.setText("CONTATO");
+
+        CheckBox_admin_alterar_nome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckBox_admin_alterar_nomeActionPerformed(evt);
+            }
+        });
 
         jLabel_admin_alterar_senha.setFont(new java.awt.Font("Rockwell", 0, 10)); // NOI18N
         jLabel_admin_alterar_senha.setText("SENHA");
@@ -813,7 +839,7 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
                                 .addComponent(txt_admin_alterar_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(CheckBox_admin_alterar_cpf))
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButton_admin_alterar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         subSubPanel_admin_alterarLayout.setVerticalGroup(
@@ -870,14 +896,22 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
                         .addComponent(txt_admin_alterar_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(CheckBox_admin_alterar_cpf)))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(jButton_admin_alterar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         TabbedPane_admin.addTab("ALTERAR", subSubPanel_admin_alterar);
 
+        subSubPanel_admin_deletar.setMaximumSize(new java.awt.Dimension(320, 320));
+        subSubPanel_admin_deletar.setPreferredSize(new java.awt.Dimension(255, 250));
+
         ComboBox_admin_deletar_tipo.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         ComboBox_admin_deletar_tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMIN", "PORTEIRO", "RESIDENTE", "CORRESPONDENCIA", "SERVICO", "PRESTADOR" }));
+        ComboBox_admin_deletar_tipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBox_admin_deletar_tipoActionPerformed(evt);
+            }
+        });
 
         jLabel_admin_deletar_identificação.setFont(new java.awt.Font("Rockwell", 1, 12)); // NOI18N
         jLabel_admin_deletar_identificação.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -889,11 +923,29 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
         jLabel_admin_deletar_cpf.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         jLabel_admin_deletar_cpf.setText("CPF");
 
+        jTextField_admin_deletar_cpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_admin_deletar_cpfActionPerformed(evt);
+            }
+        });
+
         jLabel_admin_deletar_nome.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         jLabel_admin_deletar_nome.setText("NOME");
 
+        jTextField_admin_deletar_nome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_admin_deletar_nomeActionPerformed(evt);
+            }
+        });
+
         jLabel_admin_deletar_contato.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         jLabel_admin_deletar_contato.setText("CONTATO");
+
+        jTextField_admin_deletar_contato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_admin_deletar_contatoActionPerformed(evt);
+            }
+        });
 
         jButton_admin_deletar.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         jButton_admin_deletar.setText("DELETAR DADO");
@@ -907,6 +959,24 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("TIPOS DE DADO");
 
+        buttonGroup_admin_deletar.add(jRadioButton_admin_deletar_id);
+        jRadioButton_admin_deletar_id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton_admin_deletar_idActionPerformed(evt);
+            }
+        });
+
+        buttonGroup_admin_deletar.add(jRadioButton_admin_deletar_cpf);
+        jRadioButton_admin_deletar_cpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton_admin_deletar_cpfActionPerformed(evt);
+            }
+        });
+
+        buttonGroup_admin_deletar.add(jRadioButton_admin_deletar_nome);
+
+        buttonGroup_admin_deletar.add(jRadioButton_admin_deletar_contato);
+
         javax.swing.GroupLayout subSubPanel_admin_deletarLayout = new javax.swing.GroupLayout(subSubPanel_admin_deletar);
         subSubPanel_admin_deletar.setLayout(subSubPanel_admin_deletarLayout);
         subSubPanel_admin_deletarLayout.setHorizontalGroup(
@@ -918,84 +988,93 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, subSubPanel_admin_deletarLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(subSubPanel_admin_deletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, subSubPanel_admin_deletarLayout.createSequentialGroup()
-                                .addComponent(jButton_admin_deletar)
-                                .addGap(59, 59, 59))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, subSubPanel_admin_deletarLayout.createSequentialGroup()
+                            .addGroup(subSubPanel_admin_deletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
+                                    .addComponent(jLabel_admin_deletar_cpf)
+                                    .addGap(202, 202, 202))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, subSubPanel_admin_deletarLayout.createSequentialGroup()
+                                    .addComponent(jTextField_admin_deletar_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jRadioButton_admin_deletar_cpf)
+                                    .addGap(12, 12, 12)))
+                            .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
                                 .addGroup(subSubPanel_admin_deletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
-                                        .addComponent(jTextField_admin_deletar_contato, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jCheckBox_admin_deletar_contato))
-                                    .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
-                                        .addComponent(jTextField_admin_deletar_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jCheckBox_admin_deletar_nome))
                                     .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
                                         .addComponent(jTextField_admin_deletar_id, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jCheckBox_admin_deletar_id))
-                                    .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
-                                        .addComponent(jTextField_admin_deletar_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jCheckBox_admin_deletar_cpf))
-                                    .addComponent(jLabel_admin_deletar_id)
-                                    .addComponent(jLabel_admin_deletar_cpf)
+                                        .addComponent(jRadioButton_admin_deletar_id))
                                     .addComponent(jLabel_admin_deletar_nome)
                                     .addComponent(jLabel_admin_deletar_contato))
-                                .addContainerGap())))
+                                .addGap(24, 24, 24))
+                            .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
+                                .addComponent(jLabel_admin_deletar_id)
+                                .addGap(14, 14, 14))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, subSubPanel_admin_deletarLayout.createSequentialGroup()
                         .addGroup(subSubPanel_admin_deletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ComboBox_admin_deletar_tipo, javax.swing.GroupLayout.Alignment.LEADING, 0, 230, Short.MAX_VALUE)
+                            .addComponent(ComboBox_admin_deletar_tipo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jSeparator_admin_deletar, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel_admin_deletar_identificação, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
+                        .addGroup(subSubPanel_admin_deletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
+                                .addComponent(jTextField_admin_deletar_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jRadioButton_admin_deletar_nome))
+                            .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
+                                .addComponent(jTextField_admin_deletar_contato, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jRadioButton_admin_deletar_contato)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
+                .addGap(65, 65, 65)
+                .addComponent(jButton_admin_deletar)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         subSubPanel_admin_deletarLayout.setVerticalGroup(
             subSubPanel_admin_deletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ComboBox_admin_deletar_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(subSubPanel_admin_deletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, subSubPanel_admin_deletarLayout.createSequentialGroup()
+                        .addGroup(subSubPanel_admin_deletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, subSubPanel_admin_deletarLayout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(ComboBox_admin_deletar_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSeparator_admin_deletar, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_admin_deletar_identificação)
+                                .addGap(22, 22, 22)
+                                .addComponent(jLabel_admin_deletar_id)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButton_admin_deletar_id))
+                            .addComponent(jTextField_admin_deletar_id, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25))
+                    .addComponent(jLabel_admin_deletar_cpf, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator_admin_deletar, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel_admin_deletar_identificação)
-                .addGap(18, 18, 18)
-                .addGroup(subSubPanel_admin_deletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
-                        .addComponent(jLabel_admin_deletar_id)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField_admin_deletar_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jCheckBox_admin_deletar_id))
+                .addGroup(subSubPanel_admin_deletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField_admin_deletar_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRadioButton_admin_deletar_cpf))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(subSubPanel_admin_deletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
-                        .addComponent(jLabel_admin_deletar_cpf)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField_admin_deletar_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jCheckBox_admin_deletar_cpf))
+                .addComponent(jLabel_admin_deletar_nome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(subSubPanel_admin_deletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
-                        .addComponent(jLabel_admin_deletar_nome)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField_admin_deletar_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jCheckBox_admin_deletar_nome))
+                .addGroup(subSubPanel_admin_deletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField_admin_deletar_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRadioButton_admin_deletar_nome))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(subSubPanel_admin_deletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
-                        .addComponent(jLabel_admin_deletar_contato)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField_admin_deletar_contato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jCheckBox_admin_deletar_contato))
-                .addGap(28, 28, 28)
+                .addComponent(jLabel_admin_deletar_contato)
+                .addGap(10, 10, 10)
+                .addGroup(subSubPanel_admin_deletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField_admin_deletar_contato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRadioButton_admin_deletar_contato))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton_admin_deletar)
-                .addGap(24, 24, 24))
+                .addGap(166, 166, 166))
         );
 
         TabbedPane_admin.addTab("DELETAR", subSubPanel_admin_deletar);
@@ -1004,16 +1083,15 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
         subPanel_admin.setLayout(subPanel_adminLayout);
         subPanel_adminLayout.setHorizontalGroup(
             subPanel_adminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(subPanel_adminLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(TabbedPane_admin)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, subPanel_adminLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(TabbedPane_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         subPanel_adminLayout.setVerticalGroup(
             subPanel_adminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(subPanel_adminLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(TabbedPane_admin)
+                .addComponent(TabbedPane_admin, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1025,10 +1103,10 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
             painel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(TabbedPaneOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(TabbedPaneOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, 230, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel20)
@@ -1039,11 +1117,10 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
             .addGroup(painel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(painel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(TabbedPaneOpcoes)
-                    .addComponent(ScrollPaneTabela))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TabbedPaneOpcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         getContentPane().add(painel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -1539,10 +1616,14 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
     private void Combobox_colunasConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Combobox_colunasConsultaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Combobox_colunasConsultaActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    
+    private void CheckBox_admin_alterar_tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBox_admin_alterar_tipoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_CheckBox_admin_alterar_tipoActionPerformed
+
+    private void txt_admin_alterar_tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_admin_alterar_tipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_admin_alterar_tipoActionPerformed
 
     private void txt_admin_alterar_contatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_admin_alterar_contatoActionPerformed
         // TODO add your handling code here:
@@ -1552,6 +1633,10 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_admin_alterar_nomeActionPerformed
 
+    private void CheckBox_admin_alterar_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBox_admin_alterar_nomeActionPerformed
+
+    }//GEN-LAST:event_CheckBox_admin_alterar_nomeActionPerformed
+
     private void CheckBox_admin_alterar_contatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBox_admin_alterar_contatoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CheckBox_admin_alterar_contatoActionPerformed
@@ -1560,19 +1645,260 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CheckBox_admin_alterar_dataActionPerformed
 
-    private void txt_admin_alterar_tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_admin_alterar_tipoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_admin_alterar_tipoActionPerformed
+    private void jButton_admin_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_admin_alterarActionPerformed
+        String tabela = "";
+        ArrayList<String> parametros=new ArrayList();
+        ArrayList<String> valores=new ArrayList();
+        ArrayList<String> paramPes=new ArrayList();
+        ArrayList<String> valorPes=new ArrayList();
 
-    private void CheckBox_admin_alterar_tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBox_admin_alterar_tipoActionPerformed
+        switch (this.ComboBox_admin_alterar_dado.getSelectedIndex()){
+            
+            case 1: // porteiro
+            if(this.CheckBox_admin_alterar_nome.isSelected()){
+                parametros.add(this.colunas[6][2]); // nome porteiro
+                valores.add(this.txt_admin_alterar_nome.getText().toLowerCase().trim());
+            }
+            if(this.CheckBox_admin_alterar_senha.isSelected()){
+                parametros.add(this.colunas[6][3]); // senha porteiro
+                valores.add(this.pwf_admin_alterar_senha.getText().trim());
+            }
+            if(this.CheckBox_admin_alterar_id.isSelected()){
+                paramPes.add("id_porteiro");
+                valorPes.add(this.txt_admin_alterar_id.getText().trim());
+            }
+            
+            tabela = "tb_porteiro";
+            break;
+
+            case 0: // admin
+
+            if(this.CheckBox_admin_alterar_nome.isSelected()){
+                parametros.add(this.colunas[5][2]); // nome admin
+                valores.add(this.txt_admin_alterar_nome.getText().toLowerCase().trim());
+            }
+            if(this.CheckBox_admin_alterar_senha.isSelected()){
+                parametros.add(this.colunas[5][3]); // senha admin
+                valores.add(this.pwf_admin_alterar_senha.getText().trim());
+            }
+            if(this.CheckBox_admin_alterar_id.isSelected()){
+                paramPes.add("id_admin");
+                valorPes.add(this.txt_admin_alterar_id.getText().trim());
+            }
+            if(this.CheckBox_admin_alterar_cpf.isSelected()){
+                paramPes.add("cpf_admin");
+                valorPes.add(this.txt_admin_alterar_cpf.getText().trim());
+            }
+
+            tabela = "tb_admin";
+            break;
+
+            case 2: // residente
+                
+            if(this.CheckBox_admin_alterar_nome.isSelected()){
+            parametros.add(this.colunas[4][3]); // nome residente]
+            valores.add(this.txt_admin_alterar_nome.getText().toLowerCase());
+            }    
+            if(this.CheckBox_admin_alterar_contato.isSelected()){
+            parametros.add(this.colunas[4][4]); // contato residente
+            valores.add(this.txt_admin_alterar_contato.getText()); 
+            }
+            if(this.CheckBox_admin_alterar_id.isSelected()){
+                paramPes.add("id_residente");
+                valorPes.add(this.txt_admin_alterar_id.getText().trim());
+            }
+            if(this.CheckBox_admin_alterar_cpf.isSelected()){
+                paramPes.add("cpf_cliente");
+                valorPes.add(this.txt_admin_alterar_cpf.getText().trim());
+            }
+
+            tabela = "tb_residente";
+            break;
+
+            case 3: //correspondencia
+            
+            if(this.CheckBox_admin_alterar_tipo.isSelected()){    
+            parametros.add(this.colunas[0][2]); // descrição da correspondência
+            valores.add(this.txt_admin_alterar_tipo.getText().trim());
+            }
+            if(this.CheckBox_admin_alterar_nome.isSelected()){
+                parametros.add(this.colunas[0][3]); // nome entregador
+                valores.add(this.txt_admin_alterar_nome.getText().toLowerCase().trim());
+            }
+            if(this.CheckBox_admin_alterar_data.isSelected()){
+                parametros.add(this.colunas[0][5]); // data de entrega
+                valores.add(this.txt_admin_alterar_data_realizada.getText().trim());
+            }
+            if(this.CheckBox_admin_alterar_id.isSelected()){
+                paramPes.add("id_correspondencia");
+                valorPes.add(this.txt_admin_alterar_id.getText().trim());
+            }
+            if(this.CheckBox_admin_alterar_cpf.isSelected()){
+                paramPes.add("cpf_entregador_correspondencia");
+                valorPes.add(this.txt_admin_alterar_cpf.getText().trim());
+            }
+
+
+            tabela = "tb_correspondencia";
+            break;
+            
+            case 4: //servico
+                
+            if(this.CheckBox_admin_alterar_tipo.isSelected()){    
+            parametros.add(this.colunas[2][3]); // tipo do servico
+            valores.add(this.txt_admin_alterar_tipo.getText().trim());
+            }
+            if(this.CheckBox_admin_alterar_data.isSelected())
+            parametros.add(this.colunas[2][4]); // data de agendamento
+            parametros.add(this.colunas[2][5]); // data de realização
+            valores.add(this.txt_admin_alterar_data_agendada.getText().trim());
+            valores.add(this.txt_admin_alterar_data_realizada.getText().trim());
+            if(this.CheckBox_admin_alterar_id.isSelected()){
+                paramPes.add("id_servico");
+                valorPes.add(this.txt_admin_alterar_id.getText().trim());
+            }
+            
+            tabela="tb_servico";
+            break;
+            
+            case 5: //prestador
+                
+            if(this.CheckBox_admin_alterar_nome.isSelected()){
+                parametros.add(this.colunas[1][2]); // nome prestador
+                valores.add(this.txt_admin_alterar_nome.getText().toLowerCase().trim());
+            }
+            if(this.CheckBox_admin_alterar_contato.isSelected()){
+            parametros.add(this.colunas[1][3]); // contato prestador
+            valores.add(this.txt_admin_alterar_contato.getText().trim()); 
+            }
+            if(this.CheckBox_admin_alterar_id.isSelected()){
+                paramPes.add("id_residente");
+                valorPes.add(this.txt_admin_alterar_id.getText().trim());
+            }
+            if(this.CheckBox_admin_alterar_cpf.isSelected()){
+                paramPes.add("cpf_cliente");
+                valorPes.add(this.txt_admin_alterar_cpf.getText().trim());
+            }
+
+
+            tabela = "tb_prestador";
+            break;
+
+            default:
+            break;
+        }
+
+        String[] valor = new String[valores.size()];
+        String[] param = new String[parametros.size()];
+        String[] paramPesquisa = new String[paramPes.size()];
+        String[] valorPesquisa = new String[valorPes.size()];
+        
+        for(int x=0;x<parametros.size();x++){
+            param[x]=parametros.get(x);
+        }
+        for(int x=0;x<valores.size();x++){
+            valor[x]=valores.get(x);
+        }
+        for(int x=0;x<paramPes.size();x++){
+            paramPesquisa[x]=paramPes.get(x);
+        }
+        for(int x=0;x<valorPes.size();x++){
+            valorPesquisa[x]=valorPes.get(x);
+        }
+        
+        if(param.length == valor.length){
+            dbm.alterarDados(tabela,param, valor, paramPesquisa, valorPesquisa);
+            JOptionPane.showMessageDialog(null, "Tabela alterada com sucesso.");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "ERRO AO ALTERAR TABELA.");
+        }
+    }//GEN-LAST:event_jButton_admin_alterarActionPerformed
+
+    private void jRadioButton_admin_deletar_cpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_admin_deletar_cpfActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_CheckBox_admin_alterar_tipoActionPerformed
+    }//GEN-LAST:event_jRadioButton_admin_deletar_cpfActionPerformed
+
+    private void jRadioButton_admin_deletar_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_admin_deletar_idActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton_admin_deletar_idActionPerformed
 
     private void jButton_admin_deletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_admin_deletarActionPerformed
-        // TODO add your handling code here:
+        String tabela = "";
+        String paramAnc="";
+
+        switch(this.ComboBox_admin_deletar_tipo.getSelectedIndex()){
+            case 0: //admin
+            tabela="tb_admin";
+            paramAnc="_admin";
+            break;
+            case 1: //porteiro
+            tabela="tb_porteiro";
+            paramAnc="_porteiro";
+            break;
+            case 2: //residente
+            tabela="tb_residente";
+            paramAnc="_residente";
+            case 3: //correspondencia
+            tabela="tb_correspondencia";
+            paramAnc="_correspondencia";
+            break;
+            case 4: //servico
+            tabela="tb_servico";
+            paramAnc="_servico";
+            break;
+            case 5: //prestador
+            tabela="tb_prestador";
+            paramAnc="_prestador";
+            break;
+        }
+
+        String param="", valor="";
+
+        if(this.jRadioButton_admin_deletar_id.isSelected()){
+            param="id"+paramAnc;
+            valor=this.jTextField_admin_deletar_id.getText().toLowerCase().trim();
+        }
+        if(this.jRadioButton_admin_deletar_cpf.isSelected()){
+            param="cpf"+paramAnc;
+            valor=this.jTextField_admin_deletar_cpf.getText().toLowerCase().trim();
+        }
+        if(this.jRadioButton_admin_deletar_nome.isSelected()){
+            param="nome"+paramAnc;
+            valor=this.jTextField_admin_deletar_nome.getText().toLowerCase().trim();
+        }
+        if(this.jRadioButton_admin_deletar_contato.isSelected()){
+            param="contato"+paramAnc;
+            valor=this.jTextField_admin_deletar_contato.getText().toLowerCase().trim();
+        }
+
+        if(true){
+            dbm.deletarRegistro(tabela,param, valor);
+            JOptionPane.showMessageDialog(null, "Dado deletado com sucesso.");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "ERRO AO DELETAR DADO.");
+        }
     }//GEN-LAST:event_jButton_admin_deletarActionPerformed
 
-  
+    private void jTextField_admin_deletar_contatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_admin_deletar_contatoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_admin_deletar_contatoActionPerformed
+
+    private void jTextField_admin_deletar_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_admin_deletar_nomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_admin_deletar_nomeActionPerformed
+
+    private void jTextField_admin_deletar_cpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_admin_deletar_cpfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_admin_deletar_cpfActionPerformed
+
+    private void ComboBox_admin_deletar_tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_admin_deletar_tipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBox_admin_deletar_tipoActionPerformed
+       
+                
+     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1633,14 +1959,11 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btnPrintar;
     private javax.swing.JButton btn_Inserir;
     private javax.swing.JButton btn_pesquise;
-    private javax.swing.JButton jButton1;
+    private javax.swing.ButtonGroup buttonGroup_admin_deletar;
+    private javax.swing.JButton jButton_admin_alterar;
     private javax.swing.JButton jButton_admin_deletar;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox_admin_deletar_contato;
-    private javax.swing.JCheckBox jCheckBox_admin_deletar_cpf;
-    private javax.swing.JCheckBox jCheckBox_admin_deletar_id;
-    private javax.swing.JCheckBox jCheckBox_admin_deletar_nome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -1667,6 +1990,10 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_admin_deletar_identificação;
     private javax.swing.JLabel jLabel_admin_deletar_nome;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton jRadioButton_admin_deletar_contato;
+    private javax.swing.JRadioButton jRadioButton_admin_deletar_cpf;
+    private javax.swing.JRadioButton jRadioButton_admin_deletar_id;
+    private javax.swing.JRadioButton jRadioButton_admin_deletar_nome;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
