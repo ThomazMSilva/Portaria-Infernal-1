@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+        
 
 public class TelaMenuInicialAdmin extends javax.swing.JFrame {
 
@@ -19,7 +20,9 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
             "id_destinatario_correspondencia", // 1
             "tipo_correspondencia",            // 2
             "nome_entregador_correspondencia", // 3
-            "cpf_entregador_correspondencia"   // 4
+            "cpf_entregador_correspondencia",  // 4
+            "recebido_correspondencia"         // 5
+
         },
         // prestador 1
         {
@@ -49,9 +52,23 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
             "cpf_residente",     // 2
             "nome_residente",    // 3
             "contato_residente"  // 4
-        }
+        },
+        // admin 5
+        {
+            "id_admin",          // 0
+            "cpf_admin",         // 1
+            "nome_admin",        // 2
+            "senha_admin"        // 3
+        },
+        // porteiro 6
+        {
+            "id_porteiro",       // 0   
+            "nome_porteiro",     // 1
+            "senha_porteiro",    // 2
+            "dia_servico_porteiro"//3
+        }    
     };
-
+    String[] checkbox;
     public TelaMenuInicialAdmin() {
         
         initComponents();
@@ -133,7 +150,7 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
         subPanel_admin = new javax.swing.JPanel();
         TabbedPane_admin = new javax.swing.JTabbedPane();
         subSubPanel_admin_alterar = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jButton_admin_alterar = new javax.swing.JButton();
         CheckBox_admin_alterar_data = new javax.swing.JCheckBox();
         txt_admin_alterar_data_agendada = new javax.swing.JTextField();
         txt_admin_alterar_data_realizada = new javax.swing.JTextField();
@@ -165,14 +182,14 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
         jLabel_admin_deletar_identificação = new javax.swing.JLabel();
         jLabel_admin_deletar_id = new javax.swing.JLabel();
         jTextField_admin_deletar_id = new javax.swing.JTextField();
-        jCheckBox_admin_deletar_id = new javax.swing.JCheckBox();
+        CheckBox_admin_deletar_id = new javax.swing.JCheckBox();
         jLabel_admin_deletar_cpf = new javax.swing.JLabel();
         jTextField_admin_deletar_cpf = new javax.swing.JTextField();
-        jCheckBox_admin_deletar_cpf = new javax.swing.JCheckBox();
+        CheckBox_admin_deletar_cpf = new javax.swing.JCheckBox();
         jLabel_admin_deletar_nome = new javax.swing.JLabel();
-        jCheckBox_admin_deletar_nome = new javax.swing.JCheckBox();
+        CheckBox_admin_deletar_nome = new javax.swing.JCheckBox();
         jTextField_admin_deletar_nome = new javax.swing.JTextField();
-        jCheckBox_admin_deletar_contato = new javax.swing.JCheckBox();
+        CheckBox_admin_deletar_contato = new javax.swing.JCheckBox();
         jLabel_admin_deletar_contato = new javax.swing.JLabel();
         jTextField_admin_deletar_contato = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
@@ -200,7 +217,6 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela Principal");
-        setMaximumSize(new java.awt.Dimension(1399, 729));
         setMinimumSize(new java.awt.Dimension(760, 550));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -673,14 +689,14 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
 
         TabbedPaneOpcoes.addTab("CONSULTAR", subPanelConsultar);
 
-        jButton1.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
-        jButton1.setText("ATUALIZAR DADOS");
-        jButton1.setMaximumSize(new java.awt.Dimension(80, 24));
-        jButton1.setMinimumSize(new java.awt.Dimension(80, 24));
-        jButton1.setPreferredSize(new java.awt.Dimension(80, 24));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton_admin_alterar.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        jButton_admin_alterar.setText("ATUALIZAR DADOS");
+        jButton_admin_alterar.setMaximumSize(new java.awt.Dimension(80, 24));
+        jButton_admin_alterar.setMinimumSize(new java.awt.Dimension(80, 24));
+        jButton_admin_alterar.setPreferredSize(new java.awt.Dimension(80, 24));
+        jButton_admin_alterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton_admin_alterarActionPerformed(evt);
             }
         });
 
@@ -705,6 +721,12 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
 
         jLabel_admin_alterar_contato.setFont(new java.awt.Font("Rockwell", 0, 10)); // NOI18N
         jLabel_admin_alterar_contato.setText("CONTATO");
+
+        CheckBox_admin_alterar_nome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckBox_admin_alterar_nomeActionPerformed(evt);
+            }
+        });
 
         jLabel_admin_alterar_senha.setFont(new java.awt.Font("Rockwell", 0, 10)); // NOI18N
         jLabel_admin_alterar_senha.setText("SENHA");
@@ -813,7 +835,7 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
                                 .addComponent(txt_admin_alterar_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(CheckBox_admin_alterar_cpf))
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButton_admin_alterar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         subSubPanel_admin_alterarLayout.setVerticalGroup(
@@ -870,7 +892,7 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
                         .addComponent(txt_admin_alterar_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(CheckBox_admin_alterar_cpf)))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton_admin_alterar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -878,6 +900,11 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
 
         ComboBox_admin_deletar_tipo.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         ComboBox_admin_deletar_tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMIN", "PORTEIRO", "RESIDENTE", "CORRESPONDENCIA", "SERVICO", "PRESTADOR" }));
+        ComboBox_admin_deletar_tipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBox_admin_deletar_tipoActionPerformed(evt);
+            }
+        });
 
         jLabel_admin_deletar_identificação.setFont(new java.awt.Font("Rockwell", 1, 12)); // NOI18N
         jLabel_admin_deletar_identificação.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -885,6 +912,12 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
 
         jLabel_admin_deletar_id.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         jLabel_admin_deletar_id.setText("ID");
+
+        CheckBox_admin_deletar_id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckBox_admin_deletar_idActionPerformed(evt);
+            }
+        });
 
         jLabel_admin_deletar_cpf.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         jLabel_admin_deletar_cpf.setText("CPF");
@@ -926,19 +959,19 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
                                     .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
                                         .addComponent(jTextField_admin_deletar_contato, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jCheckBox_admin_deletar_contato))
+                                        .addComponent(CheckBox_admin_deletar_contato))
                                     .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
                                         .addComponent(jTextField_admin_deletar_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jCheckBox_admin_deletar_nome))
+                                        .addComponent(CheckBox_admin_deletar_nome))
                                     .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
                                         .addComponent(jTextField_admin_deletar_id, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jCheckBox_admin_deletar_id))
+                                        .addComponent(CheckBox_admin_deletar_id))
                                     .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
                                         .addComponent(jTextField_admin_deletar_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jCheckBox_admin_deletar_cpf))
+                                        .addComponent(CheckBox_admin_deletar_cpf))
                                     .addComponent(jLabel_admin_deletar_id)
                                     .addComponent(jLabel_admin_deletar_cpf)
                                     .addComponent(jLabel_admin_deletar_nome)
@@ -969,28 +1002,28 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
                         .addComponent(jLabel_admin_deletar_id)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField_admin_deletar_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jCheckBox_admin_deletar_id))
+                    .addComponent(CheckBox_admin_deletar_id))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(subSubPanel_admin_deletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
                         .addComponent(jLabel_admin_deletar_cpf)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField_admin_deletar_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jCheckBox_admin_deletar_cpf))
+                    .addComponent(CheckBox_admin_deletar_cpf))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(subSubPanel_admin_deletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
                         .addComponent(jLabel_admin_deletar_nome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField_admin_deletar_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jCheckBox_admin_deletar_nome))
+                    .addComponent(CheckBox_admin_deletar_nome))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(subSubPanel_admin_deletarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(subSubPanel_admin_deletarLayout.createSequentialGroup()
                         .addComponent(jLabel_admin_deletar_contato)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField_admin_deletar_contato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jCheckBox_admin_deletar_contato))
+                    .addComponent(CheckBox_admin_deletar_contato))
                 .addGap(28, 28, 28)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1539,10 +1572,128 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
     private void Combobox_colunasConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Combobox_colunasConsultaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Combobox_colunasConsultaActionPerformed
+    
+    private void jButton_admin_deletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_admin_deletarActionPerformed
+        String tabela = "";
+        ArrayList<String> parametros=new ArrayList();
+        ArrayList<String> valores=new ArrayList();
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        switch (this.ComboBox_admin_deletar_dado.getSelectedIndex()){
+            
+            case 1: // porteiro
+            if(CheckBox_admin_alterar_nome.isSelected()){
+                parametros.add(this.colunas[6][2]); // nome porteiro
+                valores.add(this.txt_admin_alterar_nome.getText().toLowerCase().trim());
+            }
+            if(this.CheckBox_admin_alterar_senha.isSelected()){
+                parametros.add(this.colunas[6][3]); // senha porteiro
+                valores.add(this.pwf_admin_alterar_senha.getText().trim());
+            }
+            
+            tabela = "tb_porteiro";
+            break;
+
+            case 0: // admin
+
+            if(this.CheckBox_admin_alterar_nome.isSelected()){
+                parametros.add(this.colunas[5][2]); // nome admin
+                valores.add(this.txt_admin_alterar_nome.getText().toLowerCase().trim());
+            }
+            if(this.CheckBox_admin_alterar_senha.isSelected()){
+                parametros.add(this.colunas[5][3]); // senha admin
+                valores.add(this.pwf_admin_alterar_senha.getText().trim());
+            }
+            tabela = "tb_admin";
+            break;
+
+            case 2: // residente
+                
+            if(this.CheckBox_admin_alterar_nome.isSelected()){
+            parametros.add(this.colunas[4][3]); // nome residente]
+            valores.add(this.txt_admin_alterar_nome.getText().toLowerCase());
+            }    
+            if(this.CheckBox_admin_alterar_contato.isSelected()){
+            parametros.add(this.colunas[4][4]); // contato residente
+            valores.add(this.txt_admin_alterar_contato.getText()); 
+            }
+
+            tabela = "tb_residente";
+            break;
+
+            case 3: //correspondencia
+            
+            if(this.CheckBox_admin_alterar_tipo.isSelected()){    
+            parametros.add(this.colunas[0][2]); // descrição da correspondência
+            valores.add(this.txt_admin_alterar_tipo.getText().trim());
+            }
+            if(this.CheckBox_admin_alterar_nome.isSelected()){
+                parametros.add(this.colunas[0][3]); // nome entregador
+                valores.add(this.txt_admin_alterar_nome.getText().toLowerCase().trim());
+            }
+            if(this.CheckBox_admin_alterar_data.isSelected()){
+                parametros.add(this.colunas[0][5]); // data de entrega
+                valores.add(this.txt_admin_alterar_data_realizada.getText().trim());
+            }
+
+
+            tabela = "tb_correspondencia";
+            break;
+            
+            case 4: //servico
+                
+            if(this.CheckBox_admin_deletar_id.isSelected()){
+                
+            parametros.add(this.colunas[2][3]); // tipo do servico
+            
+            }
+            
+            tabela="tb_servico";
+            break;
+            
+            case 5: //prestador
+                
+            if(this.CheckBox_admin_alterar_nome.isSelected()){
+                parametros.add(this.colunas[1][2]); // nome prestador
+                valores.add(this.txt_admin_alterar_nome.getText().toLowerCase().trim());
+            }
+            if(this.CheckBox_admin_alterar_contato.isSelected()){
+            parametros.add(this.colunas[1][3]); // contato prestador
+            valores.add(this.txt_admin_alterar_contato.getText().trim()); 
+            }
+
+
+            tabela = "tb_prestador";
+            break;
+
+            default:
+            break;
+        }
+
+        String valor = valores;
+        String param = parametros;
+        
+        }
+        
+        if(param.length == valor.length){
+            dbm.deletarRegistro(tabela,param, valor);
+            JOptionPane.showMessageDialog(null, "Dado deletado com sucesso.");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "ERRO AO DELETAR DADO.");
+        }
+    }//GEN-LAST:event_jButton_admin_deletarActionPerformed
+
+    private void ComboBox_admin_deletar_tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_admin_deletar_tipoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_ComboBox_admin_deletar_tipoActionPerformed
+
+    private void CheckBox_admin_alterar_tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBox_admin_alterar_tipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CheckBox_admin_alterar_tipoActionPerformed
+
+    private void txt_admin_alterar_tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_admin_alterar_tipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_admin_alterar_tipoActionPerformed
 
     private void txt_admin_alterar_contatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_admin_alterar_contatoActionPerformed
         // TODO add your handling code here:
@@ -1552,6 +1703,10 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_admin_alterar_nomeActionPerformed
 
+    private void CheckBox_admin_alterar_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBox_admin_alterar_nomeActionPerformed
+
+    }//GEN-LAST:event_CheckBox_admin_alterar_nomeActionPerformed
+
     private void CheckBox_admin_alterar_contatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBox_admin_alterar_contatoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CheckBox_admin_alterar_contatoActionPerformed
@@ -1560,17 +1715,179 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CheckBox_admin_alterar_dataActionPerformed
 
-    private void txt_admin_alterar_tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_admin_alterar_tipoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_admin_alterar_tipoActionPerformed
+    private void jButton_admin_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_admin_alterarActionPerformed
+        String tabela = "";
+        ArrayList<String> parametros=new ArrayList();
+        ArrayList<String> valores=new ArrayList();
+        ArrayList<String> paramPes=new ArrayList();
+        ArrayList<String> valorPes=new ArrayList();
 
-    private void CheckBox_admin_alterar_tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBox_admin_alterar_tipoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CheckBox_admin_alterar_tipoActionPerformed
+        switch (this.ComboBox_admin_alterar_dado.getSelectedIndex()){
+            
+            case 1: // porteiro
+            if(this.CheckBox_admin_alterar_nome.isSelected()){
+                parametros.add(this.colunas[6][2]); // nome porteiro
+                valores.add(this.txt_admin_alterar_nome.getText().toLowerCase().trim());
+            }
+            if(this.CheckBox_admin_alterar_senha.isSelected()){
+                parametros.add(this.colunas[6][3]); // senha porteiro
+                valores.add(this.pwf_admin_alterar_senha.getText().trim());
+            }
+            if(this.CheckBox_admin_alterar_id.isSelected()){
+                paramPes.add("id_porteiro");
+                valorPes.add(this.txt_admin_alterar_id.getText().trim());
+            }
+            
+            tabela = "tb_porteiro";
+            break;
 
-    private void jButton_admin_deletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_admin_deletarActionPerformed
+            case 0: // admin
+
+            if(this.CheckBox_admin_alterar_nome.isSelected()){
+                parametros.add(this.colunas[5][2]); // nome admin
+                valores.add(this.txt_admin_alterar_nome.getText().toLowerCase().trim());
+            }
+            if(this.CheckBox_admin_alterar_senha.isSelected()){
+                parametros.add(this.colunas[5][3]); // senha admin
+                valores.add(this.pwf_admin_alterar_senha.getText().trim());
+            }
+            if(this.CheckBox_admin_alterar_id.isSelected()){
+                paramPes.add("id_admin");
+                valorPes.add(this.txt_admin_alterar_id.getText().trim());
+            }
+            if(this.CheckBox_admin_alterar_cpf.isSelected()){
+                paramPes.add("cpf_admin");
+                valorPes.add(this.txt_admin_alterar_cpf.getText().trim());
+            }
+
+            tabela = "tb_admin";
+            break;
+
+            case 2: // residente
+                
+            if(this.CheckBox_admin_alterar_nome.isSelected()){
+            parametros.add(this.colunas[4][3]); // nome residente]
+            valores.add(this.txt_admin_alterar_nome.getText().toLowerCase());
+            }    
+            if(this.CheckBox_admin_alterar_contato.isSelected()){
+            parametros.add(this.colunas[4][4]); // contato residente
+            valores.add(this.txt_admin_alterar_contato.getText()); 
+            }
+            if(this.CheckBox_admin_alterar_id.isSelected()){
+                paramPes.add("id_residente");
+                valorPes.add(this.txt_admin_alterar_id.getText().trim());
+            }
+            if(this.CheckBox_admin_alterar_cpf.isSelected()){
+                paramPes.add("cpf_cliente");
+                valorPes.add(this.txt_admin_alterar_cpf.getText().trim());
+            }
+
+            tabela = "tb_residente";
+            break;
+
+            case 3: //correspondencia
+            
+            if(this.CheckBox_admin_alterar_tipo.isSelected()){    
+            parametros.add(this.colunas[0][2]); // descrição da correspondência
+            valores.add(this.txt_admin_alterar_tipo.getText().trim());
+            }
+            if(this.CheckBox_admin_alterar_nome.isSelected()){
+                parametros.add(this.colunas[0][3]); // nome entregador
+                valores.add(this.txt_admin_alterar_nome.getText().toLowerCase().trim());
+            }
+            if(this.CheckBox_admin_alterar_data.isSelected()){
+                parametros.add(this.colunas[0][5]); // data de entrega
+                valores.add(this.txt_admin_alterar_data_realizada.getText().trim());
+            }
+            if(this.CheckBox_admin_alterar_id.isSelected()){
+                paramPes.add("id_correspondencia");
+                valorPes.add(this.txt_admin_alterar_id.getText().trim());
+            }
+            if(this.CheckBox_admin_alterar_cpf.isSelected()){
+                paramPes.add("cpf_entregador_correspondencia");
+                valorPes.add(this.txt_admin_alterar_cpf.getText().trim());
+            }
+
+
+            tabela = "tb_correspondencia";
+            break;
+            
+            case 4: //servico
+                
+            if(this.CheckBox_admin_alterar_tipo.isSelected()){    
+            parametros.add(this.colunas[2][3]); // tipo do servico
+            valores.add(this.txt_admin_alterar_tipo.getText().trim());
+            }
+            if(this.CheckBox_admin_alterar_data.isSelected())
+            parametros.add(this.colunas[2][4]); // data de agendamento
+            parametros.add(this.colunas[2][5]); // data de realização
+            valores.add(this.txt_admin_alterar_data_agendada.getText().trim());
+            valores.add(this.txt_admin_alterar_data_realizada.getText().trim());
+            if(this.CheckBox_admin_alterar_id.isSelected()){
+                paramPes.add("id_servico");
+                valorPes.add(this.txt_admin_alterar_id.getText().trim());
+            }
+            
+            tabela="tb_servico";
+            break;
+            
+            case 5: //prestador
+                
+            if(this.CheckBox_admin_alterar_nome.isSelected()){
+                parametros.add(this.colunas[1][2]); // nome prestador
+                valores.add(this.txt_admin_alterar_nome.getText().toLowerCase().trim());
+            }
+            if(this.CheckBox_admin_alterar_contato.isSelected()){
+            parametros.add(this.colunas[1][3]); // contato prestador
+            valores.add(this.txt_admin_alterar_contato.getText().trim()); 
+            }
+            if(this.CheckBox_admin_alterar_id.isSelected()){
+                paramPes.add("id_residente");
+                valorPes.add(this.txt_admin_alterar_id.getText().trim());
+            }
+            if(this.CheckBox_admin_alterar_cpf.isSelected()){
+                paramPes.add("cpf_cliente");
+                valorPes.add(this.txt_admin_alterar_cpf.getText().trim());
+            }
+
+
+            tabela = "tb_prestador";
+            break;
+
+            default:
+            break;
+        }
+
+        String[] valor = new String[valores.size()];
+        String[] param = new String[parametros.size()];
+        String[] paramPesquisa = new String[paramPes.size()];
+        String[] valorPesquisa = new String[valorPes.size()];
+        
+        for(int x=0;x<parametros.size();x++){
+            param[x]=parametros.get(x);
+        }
+        for(int x=0;x<valores.size();x++){
+            valor[x]=valores.get(x);
+        }
+        for(int x=0;x<paramPes.size();x++){
+            paramPesquisa[x]=paramPes.get(x);
+        }
+        for(int x=0;x<valorPes.size();x++){
+            valorPesquisa[x]=valorPes.get(x);
+        }
+        
+        if(param.length == valor.length){
+            dbm.alterarDados(tabela,param, valor, paramPesquisa, valorPesquisa);
+            JOptionPane.showMessageDialog(null, "Tabela alterada com sucesso.");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "ERRO AO ALTERAR TABELA.");
+        }
+    }//GEN-LAST:event_jButton_admin_alterarActionPerformed
+
+    private void CheckBox_admin_deletar_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBox_admin_deletar_idActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_admin_deletarActionPerformed
+    }//GEN-LAST:event_CheckBox_admin_deletar_idActionPerformed
 
   
     public static void main(String args[]) {
@@ -1614,6 +1931,10 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
     private javax.swing.JCheckBox CheckBox_admin_alterar_nome;
     private javax.swing.JCheckBox CheckBox_admin_alterar_senha;
     private javax.swing.JCheckBox CheckBox_admin_alterar_tipo;
+    private javax.swing.JCheckBox CheckBox_admin_deletar_contato;
+    private javax.swing.JCheckBox CheckBox_admin_deletar_cpf;
+    private javax.swing.JCheckBox CheckBox_admin_deletar_id;
+    private javax.swing.JCheckBox CheckBox_admin_deletar_nome;
     private javax.swing.JCheckBox CheckBox_inserir_cpf_entregador;
     private javax.swing.JCheckBox CheckBox_inserir_nome_entregador;
     private javax.swing.JComboBox<String> ComboBoxNovaInsercao;
@@ -1633,14 +1954,10 @@ public class TelaMenuInicialAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btnPrintar;
     private javax.swing.JButton btn_Inserir;
     private javax.swing.JButton btn_pesquise;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton_admin_alterar;
     private javax.swing.JButton jButton_admin_deletar;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox_admin_deletar_contato;
-    private javax.swing.JCheckBox jCheckBox_admin_deletar_cpf;
-    private javax.swing.JCheckBox jCheckBox_admin_deletar_id;
-    private javax.swing.JCheckBox jCheckBox_admin_deletar_nome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
